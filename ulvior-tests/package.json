@@ -1,0 +1,36 @@
+{
+  "name": "ulvior-tests",
+  "version": "2.0.0",
+  "description": "BDD tests for Ulvior platform — Cucumber + Selenium + Gherkin",
+  "private": true,
+  "scripts": {
+    "test": "cucumber-js",
+    "test:api": "cucumber-js --tags @api",
+    "test:ai": "cucumber-js --tags @ai",
+    "test:ui": "cucumber-js --tags @ui",
+    "test:ui:full": "npm run clean && cucumber-js features/ui --tags @ui",
+    "test:ui:auth": "cucumber-js features/ui --tags @ui-auth",
+    "test:bdd": "cucumber-js",
+    "test:report": "ts-node src/reporters/generate-all.ts",
+    "test:reports": "npm run test:report",
+    "test:all": "npm run clean && npm run test:bdd",
+    "clean": "ts-node src/utils/prepare-reports.ts"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^10.8.0",
+    "axios": "^1.6.8",
+    "chromedriver": "^147.0.0",
+    "dotenv": "^16.4.5",
+    "form-data": "^4.0.0",
+    "pdfkit": "^0.15.0",
+    "selenium-webdriver": "^4.20.0",
+    "sharp": "^0.33.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/pdfkit": "^0.13.4",
+    "@types/selenium-webdriver": "^4.1.26",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

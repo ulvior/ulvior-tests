@@ -1,0 +1,1633 @@
+[
+  {
+    "scenarioName": "Crear assessment con candidato y perfil de cargo",
+    "featureName": "AiAssessmentEndpoints",
+    "featureFile": "AiAssessmentEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiAssessmentEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:27.876Z",
+        "durationMs": 3
+      },
+      {
+        "stepText": "envio POST a \"/assessments\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/assessments",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "company_id": "bdd-company",
+            "job_id": "bdd-job",
+            "job_profile": {
+              "role_name": "Backend Developer",
+              "role_type": "individual_contributor",
+              "seniority": "senior",
+              "years_required": 4,
+              "required_stack": [
+                "NestJS",
+                "PostgreSQL"
+              ],
+              "preferred_stack": [
+                "AWS"
+              ],
+              "tools": [
+                "Docker"
+              ],
+              "competencies": [
+                "ownership",
+                "testing"
+              ],
+              "evaluation_weights": {
+                "code": 35,
+                "questions": 25,
+                "experience": 10,
+                "jd_fit": 10,
+                "interview": 10,
+                "confidence": 0,
+                "completeness": 10
+              },
+              "summary": "Cargo backend senior para suite BDD."
+            },
+            "candidate": {
+              "candidate_id": "bdd-candidate",
+              "name": "QA Candidate",
+              "email": "candidate@ulvior.test",
+              "years_experience": 5,
+              "seniority_declared": "senior",
+              "target_role": "Backend Developer",
+              "skills": [
+                "NestJS",
+                "PostgreSQL",
+                "AWS"
+              ],
+              "tools": [
+                "Docker"
+              ],
+              "summary": "Perfil usado para evidencia automatizada.",
+              "profile_completeness": 90
+            }
+          },
+          "status": 201,
+          "response": {
+            "assessment_id": "6a09c893da7619616b8ee94e",
+            "company_id": "bdd-company",
+            "job_id": "bdd-job",
+            "status": "in_progress",
+            "candidate": {
+              "candidate_id": "bdd-candidate",
+              "name": "QA Candidate",
+              "email": "candidate@ulvior.test",
+              "current_company": null,
+              "years_experience": 5,
+              "seniority_declared": "senior",
+              "target_role": "Backend Developer",
+              "skills": [
+                "NestJS",
+                "PostgreSQL",
+                "AWS"
+              ],
+              "tools": [
+                "Docker"
+              ],
+              "summary": "Perfil usado para evidencia automatizada.",
+              "projects": [],
+              "education": [],
+              "profile_completeness": 90,
+              "cv_analysis_status": null,
+              "cv_analysis_confidence": null
+            },
+            "job_profile": {
+              "role_name": "Backend Developer",
+              "role_type": "individual_contributor",
+              "seniority": "senior",
+              "years_required": 4,
+              "required_stack": [
+                "NestJS",
+                "PostgreSQL"
+              ],
+              "preferred_stack": [
+                "AWS"
+              ],
+              "tools": [
+                "Docker"
+              ],
+              "competencies": [
+                "ownership",
+                "testing"
+              ],
+              "evaluation_weights": {
+                "code": 35,
+                "questions": 25,
+                "experience": 10,
+                "jd_fit": 10,
+                "interview": 10,
+                "confidence": 0,
+                "completeness": 10
+              },
+              "summary": "Cargo backend senior para suite BDD."
+            },
+            "scores": {
+              "code_score": 0,
+              "question_score": 0,
+              "experience_score": 15,
+              "jd_fit_score": 100,
+              "interview_score": 0,
+              "confidence_score": 15,
+              "completeness_score": 90,
+              "overall_score": 20,
+              "definitive_score": 20,
+              "role_fit_score": 20,
+              "integrity_risk": "high",
+              "estimated_level": "insufficient_evidence",
+              "evidence_profile": {
+                "has_declared_role": true,
+                "has_declared_stack": true,
+                "has_declared_years": true,
+                "has_work_experience_records": false,
+                "has_education": false,
+                "has_cv_analysis": false,
+                "has_coding_assessment": false,
+                "has_technical_answers": false,
+                "has_interview_review": false,
+                "has_reference_job": true,
+                "declared_experience_years": 5,
+                "work_experience_records": 0,
+                "education_records": 0,
+                "evidence_completeness_score": 36,
+                "is_evaluable": false,
+                "missing_evidence": [
+                  "experiencias laborales registradas con rol, empresa y periodo",
+                  "CV cargado y analizado",
+                  "evaluación de código completada",
+                  "preguntas técnicas respondidas"
+                ]
+              }
+            },
+            "code_analysis": null
+          },
+          "durationMs": 602
+        },
+        "timestamp": "2026-05-17T13:54:28.480Z",
+        "durationMs": 604
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 201\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.485Z",
+        "durationMs": 5
+      },
+      {
+        "stepText": "la respuesta debe contener la propiedad \"assessment_id\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.489Z",
+        "durationMs": 3
+      }
+    ],
+    "startedAt": "2026-05-17T13:54:27.872Z",
+    "finishedAt": "2026-05-17T13:54:28.491Z"
+  },
+  {
+    "scenarioName": "Consultas de assessment inexistente responden controladamente",
+    "featureName": "AiAssessmentEndpoints",
+    "featureFile": "AiAssessmentEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiAssessmentEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.493Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio GET a \"/assessments/bdd-missing\"",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "GET",
+          "url": "http://127.0.0.1:8000/assessments/bdd-missing",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "status": 404,
+          "response": {
+            "detail": "Assessment not found."
+          },
+          "durationMs": 4
+        },
+        "timestamp": "2026-05-17T13:54:28.499Z",
+        "durationMs": 6
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 404\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.499Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:54:28.492Z",
+    "finishedAt": "2026-05-17T13:54:28.499Z"
+  },
+  {
+    "scenarioName": "Consultas de assessment inexistente responden controladamente",
+    "featureName": "AiAssessmentEndpoints",
+    "featureFile": "AiAssessmentEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiAssessmentEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.500Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio GET a \"/assessments/bdd-missing/report\"",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "GET",
+          "url": "http://127.0.0.1:8000/assessments/bdd-missing/report",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "status": 404,
+          "response": {
+            "detail": "Assessment not found."
+          },
+          "durationMs": 2
+        },
+        "timestamp": "2026-05-17T13:54:28.503Z",
+        "durationMs": 3
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 404\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.503Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:54:28.500Z",
+    "finishedAt": "2026-05-17T13:54:28.503Z"
+  },
+  {
+    "scenarioName": "Consultas de assessment inexistente responden controladamente",
+    "featureName": "AiAssessmentEndpoints",
+    "featureFile": "AiAssessmentEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiAssessmentEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.505Z",
+        "durationMs": 1
+      },
+      {
+        "stepText": "envio GET a \"/assessments/candidate/bdd-candidate/best\"",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "GET",
+          "url": "http://127.0.0.1:8000/assessments/candidate/bdd-candidate/best",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "status": 200,
+          "response": {
+            "company_id": "bdd-company",
+            "job_id": "bdd-job",
+            "status": "in_progress",
+            "candidate": {
+              "candidate_id": "bdd-candidate",
+              "name": "QA Candidate",
+              "email": "candidate@ulvior.test",
+              "current_company": null,
+              "years_experience": 5,
+              "seniority_declared": "senior",
+              "target_role": "Backend Developer",
+              "skills": [
+                "NestJS",
+                "PostgreSQL",
+                "AWS"
+              ],
+              "tools": [
+                "Docker"
+              ],
+              "summary": "Perfil usado para evidencia automatizada.",
+              "projects": [],
+              "education": [],
+              "profile_completeness": 90,
+              "cv_analysis_status": null,
+              "cv_analysis_confidence": null
+            },
+            "job_profile": {
+              "role_name": "Backend Developer",
+              "role_type": "individual_contributor",
+              "seniority": "senior",
+              "years_required": 4,
+              "required_stack": [
+                "NestJS",
+                "PostgreSQL"
+              ],
+              "preferred_stack": [
+                "AWS"
+              ],
+              "tools": [
+                "Docker"
+              ],
+              "competencies": [
+                "ownership",
+                "testing"
+              ],
+              "evaluation_weights": {
+                "code": 35,
+                "questions": 25,
+                "experience": 10,
+                "jd_fit": 10,
+                "interview": 10,
+                "confidence": 0,
+                "completeness": 10
+              },
+              "summary": "Cargo backend senior para suite BDD."
+            },
+            "scores": {
+              "code_score": 0,
+              "question_score": 0,
+              "experience_score": 15,
+              "jd_fit_score": 100,
+              "interview_score": 0,
+              "confidence_score": 15,
+              "completeness_score": 90,
+              "overall_score": 20,
+              "definitive_score": 20,
+              "role_fit_score": 20,
+              "integrity_risk": "high",
+              "estimated_level": "insufficient_evidence",
+              "evidence_profile": {
+                "has_declared_role": true,
+                "has_declared_stack": true,
+                "has_declared_years": true,
+                "has_work_experience_records": false,
+                "has_education": false,
+                "has_cv_analysis": false,
+                "has_coding_assessment": false,
+                "has_technical_answers": false,
+                "has_interview_review": false,
+                "has_reference_job": true,
+                "declared_experience_years": 5,
+                "work_experience_records": 0,
+                "education_records": 0,
+                "evidence_completeness_score": 36,
+                "is_evaluable": false,
+                "missing_evidence": [
+                  "experiencias laborales registradas con rol, empresa y periodo",
+                  "CV cargado y analizado",
+                  "evaluación de código completada",
+                  "preguntas técnicas respondidas"
+                ]
+              }
+            },
+            "code_analysis": null,
+            "question_session": {
+              "questions": [],
+              "answers": []
+            },
+            "interview_review": null,
+            "report": null,
+            "created_at": "2026-05-17T13:54:27.905528+00:00",
+            "updated_at": "2026-05-17T13:54:27.905566+00:00",
+            "id": "6a09c893da7619616b8ee94e"
+          },
+          "durationMs": 284
+        },
+        "timestamp": "2026-05-17T13:54:28.789Z",
+        "durationMs": 284
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 404\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.790Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:54:28.504Z",
+    "finishedAt": "2026-05-17T13:54:28.790Z"
+  },
+  {
+    "scenarioName": "Actualizar perfil de assessment inexistente",
+    "featureName": "AiAssessmentEndpoints",
+    "featureFile": "AiAssessmentEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiAssessmentEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.792Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio POST a \"/assessments/bdd-missing/profile\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/assessments/bdd-missing/profile",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "candidate_id": "bdd-candidate",
+            "name": "QA Candidate",
+            "email": "candidate@ulvior.test",
+            "years_experience": 5,
+            "seniority_declared": "senior",
+            "skills": [
+              "NestJS",
+              "PostgreSQL"
+            ],
+            "summary": "Actualización BDD."
+          },
+          "status": 422,
+          "response": {
+            "detail": [
+              {
+                "type": "missing",
+                "loc": [
+                  "body",
+                  "candidate"
+                ],
+                "msg": "Field required",
+                "input": {
+                  "candidate_id": "bdd-candidate",
+                  "name": "QA Candidate",
+                  "email": "candidate@ulvior.test",
+                  "years_experience": 5,
+                  "seniority_declared": "senior",
+                  "skills": [
+                    "NestJS",
+                    "PostgreSQL"
+                  ],
+                  "summary": "Actualización BDD."
+                }
+              }
+            ]
+          },
+          "durationMs": 8
+        },
+        "timestamp": "2026-05-17T13:54:28.801Z",
+        "durationMs": 8
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 404, 422\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.801Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:54:28.792Z",
+    "finishedAt": "2026-05-17T13:54:28.801Z"
+  },
+  {
+    "scenarioName": "Buscar candidatos AI con payload acotado",
+    "featureName": "AiAssessmentEndpoints",
+    "featureFile": "AiAssessmentEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiAssessmentEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:28.803Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio POST a \"/ai/candidates/search\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/ai/candidates/search",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "role": "Backend Developer",
+            "required_skills": [
+              "NestJS",
+              "PostgreSQL"
+            ],
+            "keywords": [
+              "backend",
+              "api"
+            ],
+            "seniority_max": "senior",
+            "location": "Chile",
+            "max_results": 1,
+            "min_score": 0,
+            "strictness": "low",
+            "active_only": true,
+            "refresh": false,
+            "include_gitlab": false,
+            "refresh_existing": false
+          },
+          "status": 200,
+          "response": {
+            "query_key": "44b3c53fdd7a5748da3eb0818b8f3d1beb3131a4de409878b513b63c6ebe7613",
+            "total_found": 14,
+            "total_returned": 1,
+            "cached": false,
+            "strictness": "low",
+            "stage_counts": {
+              "discovered": 14,
+              "existing_excluded": 0,
+              "new_candidates_found": 14,
+              "enriched": 14,
+              "after_prefilter": 4,
+              "evaluated": 3,
+              "after_postfilter": 3,
+              "returned": 1
+            },
+            "results": [
+              {
+                "candidate_id": "34c046fb-761f-4b84-aa5d-92e389d34e4f",
+                "provider": "github",
+                "provider_id": "3824619",
+                "username": "ljavierrodriguez",
+                "profile_url": "https://github.com/ljavierrodriguez",
+                "name": "Luis J. Rodriguez O.",
+                "email": "ljavierrodriguez@gmail.com",
+                "role": "Backend Developer",
+                "company": "Freelance Developer / TI Instructor",
+                "location": "Santiago, Chile",
+                "seniority": "senior",
+                "ai_score": 80,
+                "technical_score": 76,
+                "skill_match_score": 100,
+                "final_score": 82,
+                "repositories_count": 10,
+                "followers": 151,
+                "total_stars": 0,
+                "recent_activity_days": 26,
+                "matched_skills": [
+                  "nestjs",
+                  "postgresql"
+                ],
+                "skills": [
+                  "python",
+                  "javascript",
+                  "react",
+                  "flask",
+                  "sql",
+                  "rest api",
+                  "ci/cd",
+                  "nestjs",
+                  "postgresql",
+                  "backend",
+                  "api"
+                ],
+                "strengths": [
+                  "Experiencia de 15 años en desarrollo fullstack",
+                  "Conocimientos en NestJS y PostgreSQL",
+                  "Ubicación en Santiago, Chile",
+                  "Actividad reciente en repositorios (últimos 26 días)"
+                ],
+                "weaknesses": [
+                  "Pocos stars en repositorios públicos",
+                  "Repositorios destacados no muestran proyectos profundos en NestJS/PostgreSQL",
+                  "Enfoque parcial en frontend (React) que puede diluir especialización backend",
+                  "No se evidencia CI/CD avanzado ni pruebas automatizadas"
+                ],
+                "summary": "Candidato senior con amplia experiencia y habilidades alineadas al rol de Backend Developer, especialmente en NestJS y PostgreSQL, y ubicado en Chile. Su portafolio público muestra actividad reciente y reconocimiento moderado, pero carece de evidencia de proyectos backend profundos y tiene bajo número de stars, lo que sugiere una evaluación adicional antes de avanzar al contacto de recruiting.",
+                "recommendation_status": "advance",
+                "persisted": true,
+                "cached_profile": false,
+                "repositories": [
+                  {
+                    "name": "ejemplo-cloudinary-latam-pt-71",
+                    "description": "",
+                    "url": "https://github.com/ljavierrodriguez/ejemplo-cloudinary-latam-pt-71",
+                    "language": "Python",
+                    "stars": 0,
+                    "updated_at": "2026-05-16T00:28:22Z"
+                  },
+                  {
+                    "name": "proyecto-final-example",
+                    "description": "",
+                    "url": "https://github.com/ljavierrodriguez/proyecto-final-example",
+                    "language": "JavaScript",
+                    "stars": 0,
+                    "updated_at": "2026-05-11T23:01:58Z"
+                  },
+                  {
+                    "name": "test-proyect",
+                    "description": "",
+                    "url": "https://github.com/ljavierrodriguez/test-proyect",
+                    "language": null,
+                    "stars": 0,
+                    "updated_at": "2026-04-29T19:46:21Z"
+                  },
+                  {
+                    "name": "app-react-latam-pt-71",
+                    "description": "",
+                    "url": "https://github.com/ljavierrodriguez/app-react-latam-pt-71",
+                    "language": "JavaScript",
+                    "stars": 0,
+                    "updated_at": "2026-04-27T23:38:40Z"
+                  },
+                  {
+                    "name": "proyecto-flask-database-latam-pt-71",
+                    "description": "",
+                    "url": "https://github.com/ljavierrodriguez/proyecto-flask-database-latam-pt-71",
+                    "language": "Python",
+                    "stars": 0,
+                    "updated_at": "2026-04-27T23:38:04Z"
+                  },
+                  {
+                    "name": "app-react-spain-fs-pt-134",
+                    "description": "",
+                    "url": "https://github.com/ljavierrodriguez/app-react-spain-fs-pt-134",
+                    "language": "JavaScript",
+                    "stars": 0,
+                    "updated_at": "2026-04-27T18:22:32Z"
+                  }
+                ]
+              }
+            ]
+          },
+          "durationMs": 17457
+        },
+        "timestamp": "2026-05-17T13:54:46.260Z",
+        "durationMs": 17457
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 500\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:46.261Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:54:28.803Z",
+    "finishedAt": "2026-05-17T13:54:46.261Z"
+  },
+  {
+    "scenarioName": "Consultar historial de búsqueda de candidatos",
+    "featureName": "AiAssessmentEndpoints",
+    "featureFile": "AiAssessmentEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiAssessmentEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:46.263Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio GET a \"/ai/candidates/search/history\"",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "GET",
+          "url": "http://127.0.0.1:8000/ai/candidates/search/history",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "status": 200,
+          "response": [
+            {
+              "id": "9aff589e-5a7b-4e6a-af8c-2f60ef4c4c86",
+              "executed_at": "2026-05-17T13:54:46.138162+00:00",
+              "query_key": "44b3c53fdd7a5748da3eb0818b8f3d1beb3131a4de409878b513b63c6ebe7613",
+              "role": "Backend Developer",
+              "required_skills": [
+                "NestJS",
+                "PostgreSQL"
+              ],
+              "seniority_max": "senior",
+              "location": "Chile",
+              "max_results": 1,
+              "min_score": 0,
+              "strictness": "low",
+              "active_only": true,
+              "total_found": 14,
+              "total_returned": 1,
+              "cached": false,
+              "status": "completed",
+              "stage_counts": {
+                "discovered": 14,
+                "existing_excluded": 0,
+                "new_candidates_found": 14,
+                "enriched": 14,
+                "after_prefilter": 4,
+                "evaluated": 3,
+                "after_postfilter": 3,
+                "returned": 1
+              },
+              "results": [
+                {
+                  "candidate_id": "34c046fb-761f-4b84-aa5d-92e389d34e4f",
+                  "provider": "github",
+                  "provider_id": "3824619",
+                  "username": "ljavierrodriguez",
+                  "profile_url": "https://github.com/ljavierrodriguez",
+                  "name": "Luis J. Rodriguez O.",
+                  "email": "ljavierrodriguez@gmail.com",
+                  "role": "Backend Developer",
+                  "company": "Freelance Developer / TI Instructor",
+                  "location": "Santiago, Chile",
+                  "seniority": "senior",
+                  "ai_score": 80,
+                  "technical_score": 76,
+                  "skill_match_score": 100,
+                  "final_score": 82,
+                  "repositories_count": 10,
+                  "followers": 151,
+                  "total_stars": 0,
+                  "recent_activity_days": 26,
+                  "matched_skills": [
+                    "nestjs",
+                    "postgresql"
+                  ],
+                  "skills": [
+                    "python",
+                    "javascript",
+                    "react",
+                    "flask",
+                    "sql",
+                    "rest api",
+                    "ci/cd",
+                    "nestjs",
+                    "postgresql",
+                    "backend",
+                    "api"
+                  ],
+                  "strengths": [
+                    "Experiencia de 15 años en desarrollo fullstack",
+                    "Conocimientos en NestJS y PostgreSQL",
+                    "Ubicación en Santiago, Chile",
+                    "Actividad reciente en repositorios (últimos 26 días)"
+                  ],
+                  "weaknesses": [
+                    "Pocos stars en repositorios públicos",
+                    "Repositorios destacados no muestran proyectos profundos en NestJS/PostgreSQL",
+                    "Enfoque parcial en frontend (React) que puede diluir especialización backend",
+                    "No se evidencia CI/CD avanzado ni pruebas automatizadas"
+                  ],
+                  "summary": "Candidato senior con amplia experiencia y habilidades alineadas al rol de Backend Developer, especialmente en NestJS y PostgreSQL, y ubicado en Chile. Su portafolio público muestra actividad reciente y reconocimiento moderado, pero carece de evidencia de proyectos backend profundos y tiene bajo número de stars, lo que sugiere una evaluación adicional antes de avanzar al contacto de recruiting.",
+                  "recommendation_status": "advance",
+                  "persisted": true,
+                  "cached_profile": false,
+                  "repositories": [
+                    {
+                      "name": "ejemplo-cloudinary-latam-pt-71",
+                      "description": "",
+                      "url": "https://github.com/ljavierrodriguez/ejemplo-cloudinary-latam-pt-71",
+                      "language": "Python",
+                      "stars": 0,
+                      "updated_at": "2026-05-16T00:28:22Z"
+                    },
+                    {
+                      "name": "proyecto-final-example",
+                      "description": "",
+                      "url": "https://github.com/ljavierrodriguez/proyecto-final-example",
+                      "language": "JavaScript",
+                      "stars": 0,
+                      "updated_at": "2026-05-11T23:01:58Z"
+                    },
+                    {
+                      "name": "test-proyect",
+                      "description": "",
+                      "url": "https://github.com/ljavierrodriguez/test-proyect",
+                      "language": null,
+                      "stars": 0,
+                      "updated_at": "2026-04-29T19:46:21Z"
+                    },
+                    {
+                      "name": "app-react-latam-pt-71",
+                      "description": "",
+                      "url": "https://github.com/ljavierrodriguez/app-react-latam-pt-71",
+                      "language": "JavaScript",
+                      "stars": 0,
+                      "updated_at": "2026-04-27T23:38:40Z"
+                    },
+                    {
+                      "name": "proyecto-flask-database-latam-pt-71",
+                      "description": "",
+                      "url": "https://github.com/ljavierrodriguez/proyecto-flask-database-latam-pt-71",
+                      "language": "Python",
+                      "stars": 0,
+                      "updated_at": "2026-04-27T23:38:04Z"
+                    },
+                    {
+                      "name": "app-react-spain-fs-pt-134",
+                      "description": "",
+                      "url": "https://github.com/ljavierrodriguez/app-react-spain-fs-pt-134",
+                      "language": "JavaScript",
+                      "stars": 0,
+                      "updated_at": "2026-04-27T18:22:32Z"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "durationMs": 64
+        },
+        "timestamp": "2026-05-17T13:54:46.328Z",
+        "durationMs": 64
+      },
+      {
+        "stepText": "el status HTTP debe ser 200",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:46.329Z",
+        "durationMs": 1
+      }
+    ],
+    "startedAt": "2026-05-17T13:54:46.263Z",
+    "finishedAt": "2026-05-17T13:54:46.329Z"
+  },
+  {
+    "scenarioName": "Limpiar historial de búsqueda con selector por periodo",
+    "featureName": "AiAssessmentEndpoints",
+    "featureFile": "AiAssessmentEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiAssessmentEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:46.329Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio POST a \"/ai/candidates/search/history/cleanup\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/ai/candidates/search/history/cleanup",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "period_type": "year",
+            "year": 2026
+          },
+          "status": 200,
+          "response": {
+            "deleted_runs": 1,
+            "deleted_query_cache": 1,
+            "deleted_redis_keys": 0
+          },
+          "durationMs": 435
+        },
+        "timestamp": "2026-05-17T13:54:46.764Z",
+        "durationMs": 435
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 404\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:46.764Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:54:46.329Z",
+    "finishedAt": "2026-05-17T13:54:46.764Z"
+  },
+  {
+    "scenarioName": "Analizar código técnico",
+    "featureName": "AiCoreEndpoints",
+    "featureFile": "AiCoreEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiCoreEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:54:46.766Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio POST a \"/analyze/code\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/analyze/code",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "code": "function sum(a, b) { return a + b; } console.log(sum(2, 3));",
+            "language": "javascript",
+            "candidate_id": "bdd-candidate",
+            "integrity_signals": {
+              "authorship_score": 95,
+              "paste_count": 0,
+              "large_insert_count": 0,
+              "keystroke_count": 42,
+              "avg_typing_speed_ms": 160
+            }
+          },
+          "status": 200,
+          "response": {
+            "score": 93,
+            "level": "senior",
+            "language_detected": "javascript",
+            "feedback": {
+              "summary": "El código proporciona una implementación muy clara y concisa de una función de suma básica, destacando por su simplicidad y legibilidad. Es una función pura y funcionalmente correcta para su propósito. Para mejorar su robustez y preparación para producción, se recomienda incorporar validación de entradas y considerar la adición de pruebas unitarias.",
+              "strengths": [
+                "Claridad y legibilidad excepcionales, la intención del código es inmediatamente obvia.",
+                "Implementación concisa y directa de la funcionalidad requerida.",
+                "La función 'sum' es pura, no tiene efectos secundarios y siempre retorna el mismo resultado para las mismas entradas.",
+                "Correctitud funcional: la lógica para sumar dos números es impecable."
+              ],
+              "improvements": [
+                "Falta validación de entradas para asegurar que 'a' y 'b' sean tipos numéricos, lo que podría llevar a comportamientos inesperados (ej. concatenación de strings).",
+                "No se incluye manejo de errores para escenarios donde las entradas no son válidas o la operación no puede completarse.",
+                "En un contexto de aplicación real, la función podría beneficiarse de pruebas unitarias para verificar su comportamiento en diversos casos.",
+                "Considerar la modularización de la función para facilitar su reusabilidad en otros módulos o archivos."
+              ],
+              "best_practices_score": 90,
+              "structure_score": 95,
+              "quality_score": 95
+            },
+            "integrity_signals": {
+              "authorship_score": 95,
+              "paste_count": 0,
+              "large_insert_count": 0,
+              "keystroke_count": 42,
+              "avg_typing_speed_ms": 160
+            },
+            "truncated": false,
+            "persistence_id": "6a09c8b5da7619616b8ee950"
+          },
+          "durationMs": 14366
+        },
+        "timestamp": "2026-05-17T13:55:01.132Z",
+        "durationMs": 14366
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 404\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:01.133Z",
+        "durationMs": 1
+      },
+      {
+        "stepText": "la respuesta debe contener la propiedad \"score\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:01.133Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:54:46.766Z",
+    "finishedAt": "2026-05-17T13:55:01.134Z"
+  },
+  {
+    "scenarioName": "Parsear descripción de cargo",
+    "featureName": "AiCoreEndpoints",
+    "featureFile": "AiCoreEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiCoreEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:01.136Z",
+        "durationMs": 1
+      },
+      {
+        "stepText": "envio POST a \"/jobs/parse\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/jobs/parse",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "company_id": "bdd-company",
+            "title": "Backend Developer",
+            "jd_text": "Buscamos Backend Developer senior con experiencia en NestJS, PostgreSQL, APIs REST, testing automatizado, buenas prácticas de arquitectura y comunicación con equipos ágiles."
+          },
+          "status": 200,
+          "response": {
+            "job_id": "6a09c8b6da7619616b8ee951",
+            "company_id": "bdd-company",
+            "job_profile": {
+              "role_name": "Backend Developer",
+              "role_type": "backend",
+              "seniority": "senior",
+              "years_required": 5,
+              "required_stack": [
+                "NestJS",
+                "PostgreSQL",
+                "REST APIs"
+              ],
+              "preferred_stack": [
+                "TypeScript",
+                "Docker",
+                "Kubernetes"
+              ],
+              "tools": [
+                "Git",
+                "Jira",
+                "CI/CD pipelines"
+              ],
+              "competencies": [
+                "Arquitectura de software",
+                "Testing automatizado",
+                "Buenas prácticas de código",
+                "Comunicación en equipos ágiles"
+              ],
+              "evaluation_weights": {
+                "code": 25,
+                "questions": 20,
+                "experience": 15,
+                "jd_fit": 15,
+                "interview": 20,
+                "confidence": 5,
+                "completeness": 10
+              },
+              "summary": "Desarrollador backend senior con dominio de NestJS, PostgreSQL y APIs REST, enfocado en testing automatizado, arquitectura robusta y colaboración en entornos ágiles."
+            }
+          },
+          "durationMs": 1306
+        },
+        "timestamp": "2026-05-17T13:55:02.442Z",
+        "durationMs": 1306
+      },
+      {
+        "stepText": "el status HTTP debe ser 200",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:02.443Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "la respuesta debe contener la propiedad \"job_profile\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:02.443Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:55:01.135Z",
+    "finishedAt": "2026-05-17T13:55:02.444Z"
+  },
+  {
+    "scenarioName": "Calcular match candidato contra búsqueda",
+    "featureName": "AiCoreEndpoints",
+    "featureFile": "AiCoreEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiCoreEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:02.446Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio POST a \"/match\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/match",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "candidate": {
+              "skills": [
+                "NestJS",
+                "PostgreSQL",
+                "AWS"
+              ],
+              "years_experience": 5,
+              "seniority": "senior",
+              "evaluation_score": 88,
+              "level": "senior"
+            },
+            "search": {
+              "required_stack": [
+                "NestJS",
+                "PostgreSQL"
+              ],
+              "preferred_stack": [
+                "AWS",
+                "Redis"
+              ],
+              "seniority": "senior",
+              "years_required": 4
+            }
+          },
+          "status": 200,
+          "response": {
+            "match_score": 98,
+            "breakdown": {
+              "stack_match": 100,
+              "seniority_match": 100,
+              "experience_match": 100,
+              "evaluation_weight": 88
+            },
+            "justification": "El candidato cumple con el stack requerido, dominando **NestJS** y **PostgreSQL**, que son esenciales para la posición. Además, su experiencia de **5 años** supera los **4 años** solicitados y su senioridad **senior** coincide con la del puesto. Su alto **score técnico de 88** y el match del **98 %** respaldan su idoneidad, y su conocimiento de **AWS** aporta la tecnología preferida adicional.",
+            "persistence_id": "6a09c8b7da7619616b8ee952"
+          },
+          "durationMs": 726
+        },
+        "timestamp": "2026-05-17T13:55:03.173Z",
+        "durationMs": 727
+      },
+      {
+        "stepText": "el status HTTP debe ser 200",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.175Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "la respuesta debe contener la propiedad \"match_score\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.176Z",
+        "durationMs": 1
+      }
+    ],
+    "startedAt": "2026-05-17T13:55:02.446Z",
+    "finishedAt": "2026-05-17T13:55:03.176Z"
+  },
+  {
+    "scenarioName": "Analizar CV por URL",
+    "featureName": "AiCoreEndpoints",
+    "featureFile": "AiCoreEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiCoreEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.177Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio POST a \"/ai/cv/analyze\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/ai/cv/analyze",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "candidateId": "bdd-candidate",
+            "cvUrl": "https://example.com/cv.pdf",
+            "fileType": "pdf"
+          },
+          "status": 422,
+          "response": {
+            "detail": "No se pudo descargar el CV. La URL respondió HTTP 404."
+          },
+          "durationMs": 173
+        },
+        "timestamp": "2026-05-17T13:55:03.350Z",
+        "durationMs": 173
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 422, 500\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.350Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:55:03.177Z",
+    "finishedAt": "2026-05-17T13:55:03.350Z"
+  },
+  {
+    "scenarioName": "Generar preguntas técnicas",
+    "featureName": "AiCoreEndpoints",
+    "featureFile": "AiCoreEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiCoreEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.352Z",
+        "durationMs": 1
+      },
+      {
+        "stepText": "envio POST a \"/questions/generate\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/questions/generate",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "assessment_id": "bdd-assessment",
+            "max_questions": 3,
+            "focus_areas": [
+              "NestJS",
+              "PostgreSQL"
+            ]
+          },
+          "status": 404,
+          "response": {
+            "detail": "Assessment not found."
+          },
+          "durationMs": 4
+        },
+        "timestamp": "2026-05-17T13:55:03.356Z",
+        "durationMs": 4
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 404\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.357Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:55:03.351Z",
+    "finishedAt": "2026-05-17T13:55:03.357Z"
+  },
+  {
+    "scenarioName": "Responder pregunta técnica",
+    "featureName": "AiCoreEndpoints",
+    "featureFile": "AiCoreEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiCoreEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.358Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio POST a \"/questions/answer\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/questions/answer",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "assessment_id": "bdd-assessment",
+            "question_id": "q-1",
+            "answer": "Explicaría transacciones, índices, migraciones y separación clara entre servicios y repositorios."
+          },
+          "status": 404,
+          "response": {
+            "detail": "Assessment not found."
+          },
+          "durationMs": 5
+        },
+        "timestamp": "2026-05-17T13:55:03.363Z",
+        "durationMs": 5
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 404\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.364Z",
+        "durationMs": 1
+      }
+    ],
+    "startedAt": "2026-05-17T13:55:03.358Z",
+    "finishedAt": "2026-05-17T13:55:03.364Z"
+  },
+  {
+    "scenarioName": "Registrar score de entrevista",
+    "featureName": "AiCoreEndpoints",
+    "featureFile": "AiCoreEndpoints.feature",
+    "tags": [
+      "@ai",
+      "@AiCoreEndpoints",
+      "@regression"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.367Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "envio POST a \"/interviews/score\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/interviews/score",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "assessment_id": "bdd-assessment",
+            "interviewer": "QA Automation",
+            "communication": 85,
+            "technical_depth": 88,
+            "architecture": 82,
+            "ownership": 90,
+            "consistency": 86,
+            "notes": "Evidencia BDD para score de entrevista."
+          },
+          "status": 404,
+          "response": {
+            "detail": "Assessment not found."
+          },
+          "durationMs": 3
+        },
+        "timestamp": "2026-05-17T13:55:03.372Z",
+        "durationMs": 5
+      },
+      {
+        "stepText": "el status HTTP debe ser uno de \"200, 404\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.372Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:55:03.367Z",
+    "finishedAt": "2026-05-17T13:55:03.372Z"
+  },
+  {
+    "scenarioName": "Health del microservicio AI responde con estado",
+    "featureName": "AiHealth",
+    "featureFile": "AiHealth.feature",
+    "tags": [
+      "@ai",
+      "@AiHealth"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.375Z",
+        "durationMs": 1
+      },
+      {
+        "stepText": "envio GET a \"/health\"",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "GET",
+          "url": "http://127.0.0.1:8000/health",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "status": 200,
+          "response": {
+            "status": "ok",
+            "model": "managed",
+            "ai_provider": "managed",
+            "mongodb": {
+              "configured": true,
+              "connected": true,
+              "database": "ulvior_ai"
+            },
+            "postgres": {
+              "configured": true,
+              "connected": true,
+              "database": "postgres",
+              "schema": "ulvior_api"
+            },
+            "redis": {
+              "configured": true,
+              "connected": true
+            }
+          },
+          "durationMs": 4
+        },
+        "timestamp": "2026-05-17T13:55:03.379Z",
+        "durationMs": 4
+      },
+      {
+        "stepText": "el status HTTP debe ser 200",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.379Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "la respuesta debe contener la propiedad \"status\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.379Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:55:03.373Z",
+    "finishedAt": "2026-05-17T13:55:03.379Z"
+  },
+  {
+    "scenarioName": "Estimación de fee captura payload y cálculo",
+    "featureName": "AiHealth",
+    "featureFile": "AiHealth.feature",
+    "tags": [
+      "@ai",
+      "@AiHealth"
+    ],
+    "status": "passed",
+    "steps": [
+      {
+        "stepText": "que uso el servicio \"ai\"",
+        "keyword": "Context",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.381Z",
+        "durationMs": 1
+      },
+      {
+        "stepText": "envio POST a \"/ai/pricing/estimate-fee\" con JSON:",
+        "keyword": "Action",
+        "status": "passed",
+        "apiEvidence": {
+          "method": "POST",
+          "url": "http://127.0.0.1:8000/ai/pricing/estimate-fee",
+          "headers": {
+            "Content-Type": "application/json",
+            "X-Internal-Token": "142b7ad8e27c748daa11c1d7ccd07e54d2b57ce82a4130c461f2eaf79eb52c94"
+          },
+          "body": {
+            "roleKey": "backend_developer",
+            "displayTitle": "Backend Developer",
+            "seniority": "senior",
+            "workMode": "REMOTE",
+            "urgency": "NORMAL",
+            "stack": [
+              "NestJS",
+              "PostgreSQL",
+              "AWS"
+            ],
+            "englishLevel": "ADVANCED",
+            "roleType": "INDIVIDUAL_CONTRIBUTOR"
+          },
+          "status": 200,
+          "response": {
+            "currency": "CLP",
+            "roleKey": "backend_developer",
+            "roleLabel": "Backend Developer",
+            "displayTitle": "Backend Developer",
+            "seniority": "senior",
+            "salaryRange": {
+              "min": 2500000,
+              "max": 4500000,
+              "average": 3500000
+            },
+            "complexity": {
+              "score": 6,
+              "level": "HIGH",
+              "percent": 0.15
+            },
+            "urgency": {
+              "level": "NORMAL",
+              "percent": 0
+            },
+            "estimatedFee": 4000000,
+            "explanation": "Fee calculado en CLP usando rol predefinido, rango LATAM interno, urgencia y complejidad automática."
+          },
+          "durationMs": 5
+        },
+        "timestamp": "2026-05-17T13:55:03.386Z",
+        "durationMs": 5
+      },
+      {
+        "stepText": "el status HTTP debe ser 200",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.386Z",
+        "durationMs": 0
+      },
+      {
+        "stepText": "la respuesta debe contener la propiedad \"estimatedFee\"",
+        "keyword": "Outcome",
+        "status": "passed",
+        "timestamp": "2026-05-17T13:55:03.386Z",
+        "durationMs": 0
+      }
+    ],
+    "startedAt": "2026-05-17T13:55:03.380Z",
+    "finishedAt": "2026-05-17T13:55:03.386Z"
+  }
+]

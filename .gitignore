@@ -1,0 +1,59 @@
+# ─── OS ──────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Editores ────────────────────────────────────────────────────────────────
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.sw?
+
+# ─── Variables de entorno — NUNCA subir credenciales ─────────────────────────
+.env
+.env.local
+.env.prod
+.env.uat
+.env.production
+.env.development
+**/.env
+**/.env.local
+**/.env.prod
+**/.env.uat
+**/.env.production
+**/.env.development
+
+# ─── Dependencias ────────────────────────────────────────────────────────────
+node_modules/
+**/node_modules/
+
+# ─── Builds ──────────────────────────────────────────────────────────────────
+dist/
+build/
+.next/
+**/.next/
+**/dist/
+
+# ─── Python ──────────────────────────────────────────────────────────────────
+venv/
+**/venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.Python
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── Claude / Codex ──────────────────────────────────────────────────────────
+.claude/
+.codex-preview/
+
+# ─── Archivos temporales y de prueba con credenciales ────────────────────────
+test-db.js
+seed-empleos.js
+setup-supabase.sql
+
+# ─── Documentos generados ────────────────────────────────────────────────────
+*.docx

@@ -1,0 +1,66 @@
+{
+  "default": {
+    "require": [
+      "src/support/env.ts",
+      "src/support/world.ts",
+      "src/support/hooks.ts",
+      "src/step-definitions/**/*.ts"
+    ],
+    "requireModule": ["ts-node/register"],
+    "format": [
+      "progress-bar",
+      "json:reports/json/cucumber-report.json"
+    ],
+    "formatOptions": {
+      "snippetInterface": "async-await"
+    },
+    "features": "features/**/*.feature",
+    "publishQuiet": true,
+    "parallel": 1
+  },
+  "api": {
+    "require": [
+      "src/support/env.ts",
+      "src/support/world.ts",
+      "src/support/hooks.ts",
+      "src/step-definitions/api/**/*.ts"
+    ],
+    "requireModule": ["ts-node/register"],
+    "format": [
+      "progress-bar",
+      "json:reports/json/api-report.json"
+    ],
+    "features": "features/api/**/*.feature",
+    "publishQuiet": true
+  },
+  "ai": {
+    "require": [
+      "src/support/env.ts",
+      "src/support/world.ts",
+      "src/support/hooks.ts",
+      "src/step-definitions/ai/**/*.ts"
+    ],
+    "requireModule": ["ts-node/register"],
+    "format": [
+      "progress-bar",
+      "json:reports/json/ai-report.json"
+    ],
+    "features": "features/ai/**/*.feature",
+    "publishQuiet": true
+  },
+  "ui": {
+    "require": [
+      "src/support/env.ts",
+      "src/support/world.ts",
+      "src/support/hooks.ts",
+      "src/step-definitions/ui/**/*.ts"
+    ],
+    "requireModule": ["ts-node/register"],
+    "format": [
+      "progress-bar",
+      "json:reports/json/ui-report.json"
+    ],
+    "features": "features/ui/**/*.feature",
+    "publishQuiet": true
+  }
+}

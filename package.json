@@ -1,0 +1,21 @@
+{
+  "name": "ulvior",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "ulvior-web",
+    "ulvior-api",
+    "ulvior-ai",
+    "ulvior-tests"
+  ],
+  "scripts": {
+    "test": "npm --prefix ulvior-tests test",
+    "test:api": "npm --prefix ulvior-tests run test:api",
+    "test:ai": "npm --prefix ulvior-tests run test:ai",
+    "test:ui": "npm --prefix ulvior-tests run test:ui",
+    "test:ui:full": "npm --prefix ulvior-tests run test:ui:full",
+    "test:ui:auth": "npm --prefix ulvior-tests run test:ui:auth",
+    "test:reports": "npm --prefix ulvior-tests run test:reports",
+    "test:all": "npm --prefix ulvior-tests run test:all"
+  }
+}
