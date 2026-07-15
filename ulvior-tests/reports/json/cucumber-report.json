@@ -1,1412 +1,210 @@
 [
   {
-    "description": "  Como QA\n  quiero cubrir assessments e inteligencia de candidatos\n  para validar creación, consulta, reporte e historial de scraping.",
+    "description": "  Como QA E2E\n  quiero ejecutar acciones controladas del flujo candidato\n  para validar formularios, CV, evaluacion AI, coding y persistencia con evidencia UI/backend.",
     "elements": [
       {
         "description": "",
-        "id": "aiassessmentendpoints;crear-assessment-con-candidato-y-perfil-de-cargo",
+        "id": "candidatecontrolledactions;candidato-ejecuta-coding-desde-navegador-y-backend-persiste-ejecucion",
         "keyword": "Escenario",
-        "line": 8,
-        "name": "Crear assessment con candidato y perfil de cargo",
+        "line": 50,
+        "name": "Candidato ejecuta coding desde navegador y backend persiste ejecucion",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 486999
+              "duration": 368375
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 2365175624
             }
           },
           {
             "arguments": [],
             "keyword": "Dado ",
-            "line": 9,
-            "name": "que uso el servicio \"ai\"",
+            "line": 51,
+            "name": "inicio sesion como \"candidato\"",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
+              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:103"
             },
             "result": {
               "status": "passed",
-              "duration": 3236289
+              "duration": 3307059333
             }
           },
           {
-            "arguments": [
-              {
-                "content": "{\n  \"company_id\": \"bdd-company\",\n  \"job_id\": \"bdd-job\",\n  \"job_profile\": {\n    \"role_name\": \"Backend Developer\",\n    \"role_type\": \"individual_contributor\",\n    \"seniority\": \"senior\",\n    \"years_required\": 4,\n    \"required_stack\": [\"NestJS\", \"PostgreSQL\"],\n    \"preferred_stack\": [\"AWS\"],\n    \"tools\": [\"Docker\"],\n    \"competencies\": [\"ownership\", \"testing\"],\n    \"evaluation_weights\": {\n      \"code\": 35,\n      \"questions\": 25,\n      \"experience\": 10,\n      \"jd_fit\": 10,\n      \"interview\": 10,\n      \"confidence\": 0,\n      \"completeness\": 10\n    },\n    \"summary\": \"Cargo backend senior para suite BDD.\"\n  },\n  \"candidate\": {\n    \"candidate_id\": \"bdd-candidate\",\n    \"name\": \"QA Candidate\",\n    \"email\": \"candidate@ulvior.test\",\n    \"years_experience\": 5,\n    \"seniority_declared\": \"senior\",\n    \"target_role\": \"Backend Developer\",\n    \"skills\": [\"NestJS\", \"PostgreSQL\", \"AWS\"],\n    \"tools\": [\"Docker\"],\n    \"summary\": \"Perfil usado para evidencia automatizada.\",\n    \"profile_completeness\": 90\n  }\n}",
-                "line": 11
-              }
-            ],
+            "arguments": [],
             "keyword": "Cuando ",
-            "line": 10,
-            "name": "envio POST a \"/assessments\" con JSON:",
+            "line": 52,
+            "name": "navego a la pantalla autenticada \"/candidato/evaluacion-coding\"",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
+              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:125"
             },
             "result": {
               "status": "passed",
-              "duration": 603980290
+              "duration": 3077005498
             }
           },
           {
             "arguments": [],
             "keyword": "Entonces ",
-            "line": 49,
-            "name": "el status HTTP debe ser uno de \"200, 201\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 4579915
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Y ",
-            "line": 50,
-            "name": "la respuesta debe contener la propiedad \"assessment_id\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:85"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 4176372
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 510500
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiAssessmentEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aiassessmentendpoints;consultas-de-assessment-inexistente-responden-controladamente",
-        "keyword": "Esquema del escenario",
-        "line": 59,
-        "name": "Consultas de assessment inexistente responden controladamente",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 232625
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
             "line": 53,
-            "name": "que uso el servicio \"ai\"",
+            "name": "la pantalla autenticada debe renderizar sin errores",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
+              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:131"
             },
             "result": {
               "status": "passed",
-              "duration": 697082
+              "duration": 1942675916
             }
           },
           {
             "arguments": [],
             "keyword": "Cuando ",
             "line": 54,
-            "name": "envio GET a \"/assessments/bdd-missing\"",
+            "name": "cargo una solucion JavaScript valida en el editor coding",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:37"
+              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:352"
             },
             "result": {
               "status": "passed",
-              "duration": 5263457
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 55,
-            "name": "el status HTTP debe ser uno de \"200, 404\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 356539
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 218540
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiAssessmentEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aiassessmentendpoints;consultas-de-assessment-inexistente-responden-controladamente",
-        "keyword": "Esquema del escenario",
-        "line": 60,
-        "name": "Consultas de assessment inexistente responden controladamente",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 86583
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 53,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 147914
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Cuando ",
-            "line": 54,
-            "name": "envio GET a \"/assessments/bdd-missing/report\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:37"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2722121
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 55,
-            "name": "el status HTTP debe ser uno de \"200, 404\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 187166
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 56792
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiAssessmentEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aiassessmentendpoints;consultas-de-assessment-inexistente-responden-controladamente",
-        "keyword": "Esquema del escenario",
-        "line": 61,
-        "name": "Consultas de assessment inexistente responden controladamente",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 92290
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 53,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 289166
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Cuando ",
-            "line": 54,
-            "name": "envio GET a \"/assessments/candidate/bdd-candidate/best\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:37"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 284714288
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 55,
-            "name": "el status HTTP debe ser uno de \"200, 404\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 453373
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 104541
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiAssessmentEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aiassessmentendpoints;actualizar-perfil-de-assessment-inexistente",
-        "keyword": "Escenario",
-        "line": 63,
-        "name": "Actualizar perfil de assessment inexistente",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 251332
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 64,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 253957
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"candidate_id\": \"bdd-candidate\",\n  \"name\": \"QA Candidate\",\n  \"email\": \"candidate@ulvior.test\",\n  \"years_experience\": 5,\n  \"seniority_declared\": \"senior\",\n  \"skills\": [\"NestJS\", \"PostgreSQL\"],\n  \"summary\": \"Actualización BDD.\"\n}",
-                "line": 66
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 65,
-            "name": "envio POST a \"/assessments/bdd-missing/profile\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 8327332
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 77,
-            "name": "el status HTTP debe ser uno de \"200, 404, 422\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 275206
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 64625
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiAssessmentEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aiassessmentendpoints;buscar-candidatos-ai-con-payload-acotado",
-        "keyword": "Escenario",
-        "line": 79,
-        "name": "Buscar candidatos AI con payload acotado",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 155958
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 80,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 233748
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"role\": \"Backend Developer\",\n  \"required_skills\": [\"NestJS\", \"PostgreSQL\"],\n  \"keywords\": [\"backend\", \"api\"],\n  \"seniority_max\": \"senior\",\n  \"location\": \"Chile\",\n  \"max_results\": 1,\n  \"min_score\": 0,\n  \"strictness\": \"low\",\n  \"active_only\": true,\n  \"refresh\": false,\n  \"include_gitlab\": false,\n  \"refresh_existing\": false\n}",
-                "line": 82
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 81,
-            "name": "envio POST a \"/ai/candidates/search\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 17457422499
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 98,
-            "name": "el status HTTP debe ser uno de \"200, 500\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 339873
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 92959
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiAssessmentEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aiassessmentendpoints;consultar-historial-de-búsqueda-de-candidatos",
-        "keyword": "Escenario",
-        "line": 100,
-        "name": "Consultar historial de búsqueda de candidatos",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 414040
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 101,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 521874
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Cuando ",
-            "line": 102,
-            "name": "envio GET a \"/ai/candidates/search/history\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:37"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 64180913
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 103,
-            "name": "el status HTTP debe ser 200",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:73"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 801247
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 34958
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiAssessmentEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aiassessmentendpoints;limpiar-historial-de-búsqueda-con-selector-por-periodo",
-        "keyword": "Escenario",
-        "line": 105,
-        "name": "Limpiar historial de búsqueda con selector por periodo",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 69583
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 106,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 77331
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"period_type\": \"year\",\n  \"year\": 2026\n}",
-                "line": 108
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 107,
-            "name": "envio POST a \"/ai/candidates/search/history/cleanup\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 434464291
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 114,
-            "name": "el status HTTP debe ser uno de \"200, 404\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 287292
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 160459
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiAssessmentEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      }
-    ],
-    "id": "aiassessmentendpoints",
-    "line": 3,
-    "keyword": "Característica",
-    "name": "AiAssessmentEndpoints",
-    "tags": [
-      {
-        "name": "@ai",
-        "line": 2
-      },
-      {
-        "name": "@AiAssessmentEndpoints",
-        "line": 2
-      },
-      {
-        "name": "@regression",
-        "line": 2
-      }
-    ],
-    "uri": "features/ai/AiAssessmentEndpoints.feature"
-  },
-  {
-    "description": "  Como QA\n  quiero cubrir análisis, matching, pricing, entrevistas, CV y preguntas del microservicio AI\n  para validar que los contratos críticos respondan antes de mover ambiente.",
-    "elements": [
-      {
-        "description": "",
-        "id": "aicoreendpoints;analizar-código-técnico",
-        "keyword": "Escenario",
-        "line": 8,
-        "name": "Analizar código técnico",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 124291
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 9,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 176747
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"code\": \"function sum(a, b) { return a + b; } console.log(sum(2, 3));\",\n  \"language\": \"javascript\",\n  \"candidate_id\": \"bdd-candidate\",\n  \"integrity_signals\": {\n    \"authorship_score\": 95,\n    \"paste_count\": 0,\n    \"large_insert_count\": 0,\n    \"keystroke_count\": 42,\n    \"avg_typing_speed_ms\": 160\n  }\n}",
-                "line": 11
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 10,
-            "name": "envio POST a \"/analyze/code\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 14365870665
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 25,
-            "name": "el status HTTP debe ser uno de \"200, 404\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 248414
+              "duration": 6718618583
             }
           },
           {
             "arguments": [],
             "keyword": "Y ",
-            "line": 26,
-            "name": "la respuesta debe contener la propiedad \"score\"",
+            "line": 55,
+            "name": "ejecuto el codigo candidato desde UI",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:85"
+              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:401"
             },
             "result": {
               "status": "passed",
-              "duration": 850790
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 96750
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiCoreEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aicoreendpoints;parsear-descripción-de-cargo",
-        "keyword": "Escenario",
-        "line": 28,
-        "name": "Parsear descripción de cargo",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 282625
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 29,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 150830
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"company_id\": \"bdd-company\",\n  \"title\": \"Backend Developer\",\n  \"jd_text\": \"Buscamos Backend Developer senior con experiencia en NestJS, PostgreSQL, APIs REST, testing automatizado, buenas prácticas de arquitectura y comunicación con equipos ágiles.\"\n}",
-                "line": 31
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 30,
-            "name": "envio POST a \"/jobs/parse\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1306750081
+              "duration": 3640228580
             }
           },
           {
             "arguments": [],
             "keyword": "Entonces ",
-            "line": 38,
-            "name": "el status HTTP debe ser 200",
+            "line": 56,
+            "name": "backend coding candidato debe tener ejecucion exitosa",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:73"
+              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:477"
             },
             "result": {
               "status": "passed",
-              "duration": 414664
+              "duration": 1211202208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Cuando ",
+            "line": 57,
+            "name": "evaluo el codigo candidato con IA si esta habilitado",
+            "match": {
+              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:431"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1427979915
             }
           },
           {
             "arguments": [],
             "keyword": "Y ",
-            "line": 39,
-            "name": "la respuesta debe contener la propiedad \"job_profile\"",
+            "line": 58,
+            "name": "candidato responde todas las preguntas tecnicas coding por backend",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:85"
+              "location": "src/step-definitions/api/e2e-lifecycle.steps.ts:535"
             },
             "result": {
               "status": "passed",
-              "duration": 334290
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 73707
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiCoreEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aicoreendpoints;calcular-match-candidato-contra-búsqueda",
-        "keyword": "Escenario",
-        "line": 41,
-        "name": "Calcular match candidato contra búsqueda",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 146291
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 42,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 208706
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"candidate\": {\n    \"skills\": [\"NestJS\", \"PostgreSQL\", \"AWS\"],\n    \"years_experience\": 5,\n    \"seniority\": \"senior\",\n    \"evaluation_score\": 88,\n    \"level\": \"senior\"\n  },\n  \"search\": {\n    \"required_stack\": [\"NestJS\", \"PostgreSQL\"],\n    \"preferred_stack\": [\"AWS\", \"Redis\"],\n    \"seniority\": \"senior\",\n    \"years_required\": 4\n  }\n}",
-                "line": 44
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 43,
-            "name": "envio POST a \"/match\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 726907790
+              "duration": 19206273580
             }
           },
           {
             "arguments": [],
             "keyword": "Entonces ",
+            "line": 59,
+            "name": "backend candidato debe tener evidencia coding completa y score comercial",
+            "match": {
+              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:488"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1684946791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Entonces ",
+            "line": 60,
+            "name": "la pantalla autenticada debe renderizar sin errores",
+            "match": {
+              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:131"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 152604123
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
             "line": 61,
-            "name": "el status HTTP debe ser 200",
+            "name": "backend evaluacion AI candidato debe responder 200 y reconocer CV",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:73"
+              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:467"
             },
             "result": {
               "status": "passed",
-              "duration": 500498
+              "duration": 2411515209
             }
           },
           {
             "arguments": [],
-            "keyword": "Y ",
+            "keyword": "Cuando ",
             "line": 62,
-            "name": "la respuesta debe contener la propiedad \"match_score\"",
+            "name": "navego a la pantalla autenticada \"/candidato/evaluacion-coding\"",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:85"
+              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:125"
             },
             "result": {
               "status": "passed",
-              "duration": 183746
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 61958
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiCoreEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aicoreendpoints;analizar-cv-por-url",
-        "keyword": "Escenario",
-        "line": 64,
-        "name": "Analizar CV por URL",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 162291
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 65,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 166166
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"candidateId\": \"bdd-candidate\",\n  \"cvUrl\": \"https://example.com/cv.pdf\",\n  \"fileType\": \"pdf\"\n}",
-                "line": 67
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 66,
-            "name": "envio POST a \"/ai/cv/analyze\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 172750081
+              "duration": 2290823916
             }
           },
           {
             "arguments": [],
             "keyword": "Entonces ",
-            "line": 74,
-            "name": "el status HTTP debe ser uno de \"200, 422, 500\"",
+            "line": 63,
+            "name": "la pantalla debe mostrar al menos uno de estos textos \"Preguntas|Resultados|Score|Evaluación\"",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
+              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:147"
             },
             "result": {
               "status": "passed",
-              "duration": 179705
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 46499
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiCoreEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aicoreendpoints;generar-preguntas-técnicas",
-        "keyword": "Escenario",
-        "line": 76,
-        "name": "Generar preguntas técnicas",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 146959
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 77,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 191081
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"assessment_id\": \"bdd-assessment\",\n  \"max_questions\": 3,\n  \"focus_areas\": [\"NestJS\", \"PostgreSQL\"]\n}",
-                "line": 79
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 78,
-            "name": "envio POST a \"/questions/generate\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 4602997
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 86,
-            "name": "el status HTTP debe ser uno de \"200, 404\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 212663
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 47500
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiCoreEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aicoreendpoints;responder-pregunta-técnica",
-        "keyword": "Escenario",
-        "line": 88,
-        "name": "Responder pregunta técnica",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 124666
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 89,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 160289
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"assessment_id\": \"bdd-assessment\",\n  \"question_id\": \"q-1\",\n  \"answer\": \"Explicaría transacciones, índices, migraciones y separación clara entre servicios y repositorios.\"\n}",
-                "line": 91
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 90,
-            "name": "envio POST a \"/questions/answer\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 5193372
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 98,
-            "name": "el status HTTP debe ser uno de \"200, 404\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 202583
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 56917
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiCoreEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aicoreendpoints;registrar-score-de-entrevista",
-        "keyword": "Escenario",
-        "line": 100,
-        "name": "Registrar score de entrevista",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 301082
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 101,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 214624
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"assessment_id\": \"bdd-assessment\",\n  \"interviewer\": \"QA Automation\",\n  \"communication\": 85,\n  \"technical_depth\": 88,\n  \"architecture\": 82,\n  \"ownership\": 90,\n  \"consistency\": 86,\n  \"notes\": \"Evidencia BDD para score de entrevista.\"\n}",
-                "line": 103
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 102,
-            "name": "envio POST a \"/interviews/score\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 4323913
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 115,
-            "name": "el status HTTP debe ser uno de \"200, 404\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:77"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 247916
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 119958
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
-            "line": 2
-          },
-          {
-            "name": "@AiCoreEndpoints",
-            "line": 2
-          },
-          {
-            "name": "@regression",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      }
-    ],
-    "id": "aicoreendpoints",
-    "line": 3,
-    "keyword": "Característica",
-    "name": "AiCoreEndpoints",
-    "tags": [
-      {
-        "name": "@ai",
-        "line": 2
-      },
-      {
-        "name": "@AiCoreEndpoints",
-        "line": 2
-      },
-      {
-        "name": "@regression",
-        "line": 2
-      }
-    ],
-    "uri": "features/ai/AiCoreEndpoints.feature"
-  },
-  {
-    "description": "  Como equipo de QA\n  quiero evidencia BDD de los endpoints AI\n  para reportar salud y pricing en un PDF independiente.",
-    "elements": [
-      {
-        "description": "",
-        "id": "aihealth;health-del-microservicio-ai-responde-con-estado",
-        "keyword": "Escenario",
-        "line": 8,
-        "name": "Health del microservicio AI responde con estado",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 114792
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 9,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 356583
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Cuando ",
-            "line": 10,
-            "name": "envio GET a \"/health\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:37"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3795208
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 11,
-            "name": "el status HTTP debe ser 200",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:73"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 116707
+              "duration": 146301123
             }
           },
           {
             "arguments": [],
             "keyword": "Y ",
-            "line": 12,
-            "name": "la respuesta debe contener la propiedad \"status\"",
+            "line": 64,
+            "name": "la consola del navegador no debe tener errores severos",
             "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:85"
+              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:518"
             },
             "result": {
               "status": "passed",
-              "duration": 100998
+              "duration": 145269208
             }
           },
           {
@@ -1414,130 +212,45 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 99624
+              "duration": 53820125
             }
           }
         ],
         "tags": [
           {
-            "name": "@ai",
+            "name": "@ui",
             "line": 2
           },
           {
-            "name": "@AiHealth",
-            "line": 2
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "aihealth;estimación-de-fee-captura-payload-y-cálculo",
-        "keyword": "Escenario",
-        "line": 14,
-        "name": "Estimación de fee captura payload y cálculo",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 382750
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Dado ",
-            "line": 15,
-            "name": "que uso el servicio \"ai\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:33"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 222874
-            }
-          },
-          {
-            "arguments": [
-              {
-                "content": "{\n  \"roleKey\": \"backend_developer\",\n  \"displayTitle\": \"Backend Developer\",\n  \"seniority\": \"senior\",\n  \"workMode\": \"REMOTE\",\n  \"urgency\": \"NORMAL\",\n  \"stack\": [\"NestJS\", \"PostgreSQL\", \"AWS\"],\n  \"englishLevel\": \"ADVANCED\",\n  \"roleType\": \"INDIVIDUAL_CONTRIBUTOR\"\n}",
-                "line": 17
-              }
-            ],
-            "keyword": "Cuando ",
-            "line": 16,
-            "name": "envio POST a \"/ai/pricing/estimate-fee\" con JSON:",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:65"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 5050332
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 29,
-            "name": "el status HTTP debe ser 200",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:73"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 160083
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Y ",
-            "line": 30,
-            "name": "la respuesta debe contener la propiedad \"estimatedFee\"",
-            "match": {
-              "location": "src/step-definitions/api/common-api.steps.ts:85"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 128956
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 52041
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@ai",
+            "name": "@candidate-controlled",
             "line": 2
           },
           {
-            "name": "@AiHealth",
+            "name": "@CandidateControlledActions",
             "line": 2
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "aihealth",
+    "id": "candidatecontrolledactions",
     "line": 3,
     "keyword": "Característica",
-    "name": "AiHealth",
+    "name": "CandidateControlledActions",
     "tags": [
       {
-        "name": "@ai",
+        "name": "@ui",
         "line": 2
       },
       {
-        "name": "@AiHealth",
+        "name": "@candidate-controlled",
+        "line": 2
+      },
+      {
+        "name": "@CandidateControlledActions",
         "line": 2
       }
     ],
-    "uri": "features/ai/AiHealth.feature"
+    "uri": "features/ui/CandidateControlledActions.feature"
   }
 ]

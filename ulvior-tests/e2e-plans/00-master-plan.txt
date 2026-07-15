@@ -1,0 +1,58 @@
+ULVIOR QA E2E - MASTER PLAN VIVO
+Run ID base: E2E-20260713-ULVIOR-QA-001
+
+Cambio de estrategia:
+Antes de ejecutar suites grandes, se debe inventariar cada flujo navegando pantalla por pantalla, capturando:
+- URL/pantalla.
+- Botones visibles.
+- Links/acciones visibles.
+- Formularios y campos.
+- Modales que abre cada accion.
+- Estado visual antes/despues.
+- Endpoint backend observado o validacion API equivalente.
+- Riesgo de accion destructiva.
+- Evidencia screenshot.
+
+Orden obligatorio:
+1. Admin.
+2. Candidato.
+3. Empresa.
+
+Fases por flujo:
+1. Inventario visual:
+   - Entrar a cada pantalla del flujo.
+   - Tomar screenshot base.
+   - Listar todos los botones/links/acciones visibles.
+   - Listar todos los formularios y campos visibles.
+
+2. Plan de prueba del flujo:
+   - Convertir cada pantalla, boton y formulario en caso de prueba.
+   - Marcar acciones destructivas o que requieren datos preparados.
+   - Definir input E2E con identificador unico.
+
+3. Desarrollo/automatizacion:
+   - Crear o ajustar steps/scripts en ulvior-tests.
+   - Capturar screenshot por accion.
+   - Registrar respuesta API o validacion backend.
+   - Registrar logs/email cuando aplique.
+
+4. Correccion:
+   - Si una accion falla por bug del producto, corregir en web/api/ai segun corresponda.
+   - Repetir la prueba afectada.
+   - Documentar resultado antes/despues.
+
+5. Cierre:
+   - Guardar evidencia por flujo.
+   - Generar reporte del flujo solo despues de cubrir el inventario.
+
+Criterios de cobertura:
+- Ningun boton visible queda sin clasificar.
+- Ningun formulario visible queda sin caso de validacion.
+- Cada accion importante tiene screenshot antes/despues.
+- Cada dato creado incluye el Run ID o prefijo QA equivalente.
+- Si no se prueba algo, queda marcado como BLOQUEADO con causa concreta.
+
+Notas de seguridad:
+- No ejecutar acciones destructivas irreversibles sin ambiente dedicado.
+- Acciones de crear/editar se prueban con datos QA trazables.
+- Acciones de eliminar/suspender/cancelar se prueban solo si existe forma segura de rollback o si se documenta como bloqueado.

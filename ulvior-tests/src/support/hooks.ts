@@ -15,6 +15,7 @@ import * as fs   from 'fs'
 import { UlviorWorld } from './world'
 import { buildDriver } from './driver'
 import { evidenceStore, StepEvidence } from '../reporters/evidence-store'
+import { ENV } from './env'
 
 // ── Ensure output directories exist ──────────────────────────────────────────
 const SCREENSHOTS_DIR = path.resolve(__dirname, '../../reports/screenshots')
@@ -23,10 +24,45 @@ const JSON_DIR        = path.resolve(__dirname, '../../reports/json')
 const EVIDENCE_DIR    = path.resolve(__dirname, '../../reports/evidence')
 ;[SCREENSHOTS_DIR, PDFS_DIR, JSON_DIR, EVIDENCE_DIR].forEach(d => fs.mkdirSync(d, { recursive: true }))
 
-setDefaultTimeout(30000)
+setDefaultTimeout(Math.max(ENV.SELENIUM_TIMEOUT, 90000))
 
 function safeName(value: string): string {
   return value.replace(/[^a-zA-Z0-9_-]/g, '_').replace(/_+/g, '_').slice(0, 80)
+}
+
+async function waitForVisualEvidence(world: UlviorWorld) {
+  if (!world.driver) return
+  const driver = world.driver
+  const startedAt = Date.now()
+  const maxWaitMs = Math.min(ENV.SELENIUM_TIMEOUT, 12000)
+
+  try {
+    await driver.wait(async () => {
+      const state = await driver.executeScript(`
+        const text = (document.body?.innerText || '').trim();
+        const visibleBusy = Array.from(document.querySelectorAll('[aria-busy="true"], .animate-pulse, .skeleton, [data-loading="true"]'))
+          .filter((el) => {
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+          }).length;
+        const hasBlockingLoadingText = /^(cargando|loading|procesando|actualizando)(\\.|\\s|$)/i.test(text);
+        return {
+          ready: document.readyState,
+          textLength: text.length,
+          visibleBusy,
+          hasBlockingLoadingText,
+        };
+      `) as any
+
+      const readyEnough = state.ready === 'complete' || state.ready === 'interactive'
+      const hasContent = Number(state.textLength ?? 0) > 20
+      const idleEnough = Number(state.visibleBusy ?? 0) === 0 && !state.hasBlockingLoadingText
+      const waitedEnough = Date.now() - startedAt > 1800
+      return readyEnough && hasContent && (idleEnough || waitedEnough)
+    }, maxWaitMs)
+  } catch {
+    // If a page uses long-lived skeletons or streams, keep the screenshot rather than hiding evidence.
+  }
 }
 
 BeforeAll(function () {
@@ -91,7 +127,8 @@ AfterStep(async function (this: UlviorWorld, step: ITestStepHookParameter) {
   const errMsg  = (result as any)?.error ? String((result as any).error) : undefined
   const durationMs = this.currentStepStartedAt ? Date.now() - this.currentStepStartedAt : undefined
 
-  // Screenshot for UI steps
+  // Screenshot for UI steps, after giving async UI data a chance to render.
+  if (this.driver) await waitForVisualEvidence(this)
   const screenshot = this.driver ? await this.captureScreenshot() : undefined
 
   // Save screenshot to disk for reference

@@ -1,0 +1,129 @@
+ULVIOR QA E2E - PLAN VIVO CANDIDATO
+
+Objetivo:
+Inventariar y probar todo el portal candidato: perfil, documentos/CV, evaluacion AI, evaluacion coding, test fit, empleos, postulaciones, procesos, entrevistas, notificaciones y persistencia.
+
+Pantallas iniciales a inventariar:
+- /candidato/home
+- /candidato/perfil
+- /candidato/perfil/editar
+- /candidato/evaluacion-ai
+- /candidato/evaluacion-coding
+- /candidato/test-fit
+- /candidato/test-fit/completar
+- /candidato/test-fit/resultado
+- /candidato/empleos
+- /candidato/empleos/:id si existe
+- /candidato/empleos/:id/postular si existe
+- /candidato/postulaciones
+- /candidato/procesos
+- /candidato/procesos/:id si existe
+- /candidato/entrevistas
+- Panel de notificaciones
+- Logout
+
+Inventario requerido por pantalla:
+- Screenshot base.
+- Lista de botones visibles.
+- Lista de links/acciones visibles.
+- Lista de inputs/selects/textareas/checkboxes/file inputs.
+- Estados visibles de CV, evaluacion AI, coding, test fit.
+- Texto de error, loading, pendiente o accion requerida.
+
+Casos obligatorios:
+- Login candidato exitoso.
+- Editar perfil con campos no relacionados a CV.
+- Verificar que CV no desaparece despues de editar perfil.
+- Cargar CV PDF valido.
+- Ver documento visible despues de cargar.
+- Analisis CV.
+- Descargar CV si hay boton visible.
+- Recargar pagina y validar persistencia.
+- Logout/login y validar persistencia.
+- Evaluacion AI:
+  - Carga UI.
+  - Backend responde 200.
+  - Reconoce evidencia CV si existe.
+  - No muestra 503.
+- Evaluacion coding:
+  - Challenge acorde al perfil.
+  - Lenguaje acorde al perfil o fallback explicado.
+  - Editor usable.
+  - Ejecutar codigo.
+  - Evaluar con AI.
+  - Preguntas tecnicas.
+  - Respuestas persisten despues de refresh.
+- Test fit:
+  - Completar preguntas visibles.
+  - Resultado persistente.
+- Empleos:
+  - Buscar.
+  - Abrir detalle.
+  - Postular si accion existe.
+- Notificaciones:
+  - Abrir panel.
+  - Refresh.
+  - Marcar leidas si existe.
+- Logout y back-button.
+
+Validacion backend/API:
+- /auth/me
+- /candidato/home
+- /candidato/perfil
+- /candidato/documentos
+- /candidato/perfil/cv
+- /candidato/perfil/cv/analyze
+- /candidato/perfil/cv/download
+- /candidato/evaluacion-ai
+- /candidato/evaluacion-coding
+- /candidato/evaluacion-coding/ejecutar
+- /candidato/evaluacion-coding/analizar
+- /candidato/evaluacion-coding/preguntas/generar
+- /candidato/evaluacion-coding/preguntas/responder
+- /candidato/empleos
+- /candidato/postulaciones
+- /candidato/procesos
+- /candidato/entrevistas
+- /notificaciones
+
+Estado:
+- Inventario visual automatizado ejecutado.
+- Run: E2E-20260713-ULVIOR-QA-001.
+- Evidencia visual: e2e-inventory/E2E-20260713-ULVIOR-QA-001/candidato/screenshots/.
+- Resumen legible: e2e-inventory/E2E-20260713-ULVIOR-QA-001/candidato/candidato-inventory-readable.txt.
+- Rutas reales inventariadas: 12 rutas UI. La seccion Documentos no existe como ruta /candidato/documentos; vive dentro de /candidato/perfil y se valida por API con /candidato/documentos.
+- Totales inventario actual con rutas UI reales: 12 pantallas candidato, 221 botones/links aproximados, 14 campos, 1 formulario, 0 errores de consola despues de corregir Evaluacion AI.
+- Acciones controladas detectadas:
+  - /candidato/perfil/editar: Guardar cambios.
+  - /candidato/perfil/editar: Cancelar.
+  - /candidato/evaluacion-ai: Actualizar evaluacion.
+  - /candidato/test-fit/completar: Siguiente deshabilitado hasta elegir respuesta.
+- Campos reales en /candidato/perfil/editar:
+  - rol_actual
+  - empresa_actual
+  - años_experiencia
+  - resumen
+  - stack tecnico por input de tags
+  - disponibilidad
+  - expectativa_salarial
+  - modalidad_preferida
+  - linkedin
+  - github
+- Campos reales en /candidato/empleos:
+  - busqueda por rol, empresa o tecnologia
+  - select de modalidad/estado segun UI
+  - input numerico
+  - select adicional
+- Bug corregido antes de continuar:
+  - /candidato/evaluacion-ai devolvia 503 cuando el servicio AI no inicializaba la evaluacion tecnica.
+  - Se agrego fallback backend local-evidence para responder 200 sin hardcodear score positivo ni inventar evidencia.
+  - Verificacion API: login candidato 201, /candidato/evaluacion-ai 200 mode=fallback provider=local-evidence, /candidato/evaluacion-coding 200.
+- Pendiente pruebas controladas:
+  - Editar perfil y validar persistencia backend/UI.
+  - Cargar CV desde UI, analizarlo, validar Documentos en perfil y /candidato/documentos.
+  - Validar que editar perfil no borra CV.
+  - Validar Evaluacion AI tras CV.
+  - Validar Evaluacion Coding: empezar desafio, ejecutar codigo, analizar con IA si corresponde, preguntas y respuestas persistentes.
+  - Validar Test Fit completo.
+  - Validar Empleos, detalle y postulacion si hay accion disponible.
+  - Validar Postulaciones, Procesos, Entrevistas y notificaciones.

@@ -1,9 +1,10 @@
 import assert from 'assert'
 import { Given, When, Then } from '@cucumber/cucumber'
-import { By, until, WebElement } from 'selenium-webdriver'
+import { By, Key, until, WebElement } from 'selenium-webdriver'
 import { UlviorWorld } from '../../support/world'
 import { LoginPage } from '../../pages/LoginPage'
 import { ENV } from '../../support/env'
+import { renderTemplate } from '../../utils/template'
 
 const ROLE_HOME: Record<string, string> = {
   admin: '/admin/dashboard',
@@ -145,7 +146,7 @@ Then('debo seguir autenticado como {string}', async function (this: UlviorWorld,
 
 Then('la pantalla debe mostrar al menos uno de estos textos {string}', async function (this: UlviorWorld, values: string) {
   const driver = ensureDriver(this)
-  const expected = values.split('|').map((item) => item.trim()).filter(Boolean)
+  const expected = values.split('|').map((item) => renderTemplate(item.trim())).filter(Boolean)
   await driver.wait(async () => {
     const text = await bodyText(this)
     return expected.some((item) => text.includes(item))
@@ -154,10 +155,25 @@ Then('la pantalla debe mostrar al menos uno de estos textos {string}', async fun
 
 When('busco en la pantalla {string}', async function (this: UlviorWorld, query: string) {
   const driver = ensureDriver(this)
-  const inputs = await visibleElements(driver, By.xpath("//input[contains(@placeholder, 'Buscar') or contains(@aria-label, 'Buscar')]"))
-  assert.ok(inputs.length > 0, 'No existe input visible de busqueda en la pantalla')
-  await inputs[0].clear()
-  await inputs[0].sendKeys(query)
+  const rendered = renderTemplate(query)
+  const filled = await driver.executeScript(`
+    const query = arguments[0];
+    const candidates = Array.from(document.querySelectorAll('input, textarea'))
+      .filter((item) => {
+        const rect = item.getBoundingClientRect();
+        const text = [item.placeholder, item.getAttribute('aria-label'), item.name, item.id].join(' ').toLowerCase();
+        return rect.width > 0 && rect.height > 0 && !item.disabled && text.includes('buscar');
+      });
+    const input = candidates[0];
+    if (!input) return false;
+    input.scrollIntoView({ block: 'center', inline: 'center' });
+    input.focus();
+    input.value = query;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+    return true;
+  `, rendered)
+  assert.ok(filled, 'No existe input visible de busqueda en la pantalla')
   await driver.sleep(1500)
 })
 
@@ -177,6 +193,24 @@ When('hago click en la accion visible {string}', async function (this: UlviorWor
     label,
   )
   await waitForAppSettled(this)
+})
+
+When('hago click en la accion visible {string} si existe', async function (this: UlviorWorld, label: string) {
+  const driver = ensureDriver(this)
+  const literal = xpathLiteral(label)
+  const elements = await visibleElements(
+    driver,
+    By.xpath(`//*[self::button or self::a][contains(normalize-space(.), ${literal}) or @aria-label=${literal}]`),
+  )
+  if (!elements.length) return
+  await driver.executeScript('arguments[0].scrollIntoView({block:"center", inline:"center"})', elements[0])
+  const clicked = await driver.executeScript(`
+    const element = arguments[0];
+    if (!element || element.disabled) return false;
+    element.click();
+    return true;
+  `, elements[0])
+  if (clicked) await driver.sleep(700)
 })
 
 When('hago click en la primera accion de resultado {string}', async function (this: UlviorWorld, label: string) {
@@ -224,11 +258,15 @@ When('marco notificaciones leidas si existen', async function (this: UlviorWorld
   const driver = ensureDriver(this)
   const bellTextBefore = await visibleElements(driver, By.css('[aria-label="Notificaciones"]'))
   ;(this as any).notificationCountBefore = bellTextBefore[0] ? getBadgeCountFromText(await bellTextBefore[0].getText()) : 0
-  const buttons = await visibleElements(driver, By.xpath("//button[contains(normalize-space(.), 'Marcar leídas')]"))
-  if (buttons.length > 0) {
-    await buttons[0].click()
-    await driver.sleep(1000)
-  }
+  const clicked = await driver.executeScript(`
+    const button = Array.from(document.querySelectorAll('button'))
+      .find((item) => (item.innerText || item.textContent || '').includes('Marcar leídas'));
+    if (!button || button.disabled) return false;
+    button.scrollIntoView({ block: 'center', inline: 'center' });
+    button.click();
+    return true;
+  `)
+  if (clicked) await driver.sleep(1000)
 })
 
 Then('el contador de notificaciones no debe aumentar', async function (this: UlviorWorld) {
@@ -276,4 +314,158 @@ Then('el back button no debe mostrar una pantalla privada', async function (this
   const url = await driver.getCurrentUrl()
   const text = await bodyText(this)
   assert.ok(url.includes('/login') || text.includes('Iniciar sesión'), `Back button mostro una pantalla privada: ${url}`)
+})
+
+When('completo el campo con name {string} con {string}', async function (this: UlviorWorld, name: string, value: string) {
+  const driver = ensureDriver(this)
+  const rendered = renderTemplate(value)
+  const element = await driver.wait(
+    until.elementLocated(By.css(`[name="${name}"]`)),
+    ENV.SELENIUM_TIMEOUT,
+    `No se encontro campo name=${name}`,
+  )
+  await driver.executeScript('arguments[0].scrollIntoView({block:"center"})', element)
+  await element.clear()
+  await element.sendKeys(rendered)
+  await driver.sleep(250)
+})
+
+When('completo el primer campo con placeholder {string} con {string}', async function (this: UlviorWorld, placeholder: string, value: string) {
+  const driver = ensureDriver(this)
+  const rendered = renderTemplate(value)
+  const element = await driver.wait(
+    until.elementLocated(By.xpath(`(//input[@placeholder=${xpathLiteral(placeholder)}] | //textarea[@placeholder=${xpathLiteral(placeholder)}])[1]`)),
+    ENV.SELENIUM_TIMEOUT,
+    `No se encontro campo placeholder=${placeholder}`,
+  )
+  await driver.executeScript('arguments[0].scrollIntoView({block:"center"})', element)
+  await element.clear()
+  await element.sendKeys(rendered)
+  await driver.sleep(250)
+})
+
+When('selecciono la primera opcion valida del select name {string}', async function (this: UlviorWorld, name: string) {
+  const driver = ensureDriver(this)
+  const select = await driver.wait(
+    until.elementLocated(By.css(`select[name="${name}"]`)),
+    ENV.SELENIUM_TIMEOUT,
+    `No se encontro select name=${name}`,
+  )
+  await driver.wait(async () => {
+    return await driver.executeScript(`
+      const select = arguments[0];
+      return Array.from(select.options).some((item) => item.value && !item.disabled);
+    `, select)
+  }, ENV.SELENIUM_TIMEOUT, `Select ${name} no cargo opciones validas`)
+  const selected = await driver.executeScript(`
+    const select = arguments[0];
+    const option = Array.from(select.options).find((item) => item.value && !item.disabled);
+    if (!option) return null;
+    select.value = option.value;
+    select.dispatchEvent(new Event('input', { bubbles: true }));
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+    return { value: option.value, text: option.textContent };
+  `, select)
+  assert.ok(selected, `Select ${name} no tiene opcion valida`)
+  await driver.sleep(350)
+})
+
+When('selecciono en el select name {string} la opcion que contiene {string}', async function (this: UlviorWorld, name: string, text: string) {
+  const driver = ensureDriver(this)
+  const select = await driver.wait(
+    until.elementLocated(By.css(`select[name="${name}"]`)),
+    ENV.SELENIUM_TIMEOUT,
+    `No se encontro select name=${name}`,
+  )
+  const rendered = renderTemplate(text)
+  const selected = await driver.executeScript(`
+    const select = arguments[0];
+    const expected = arguments[1].toLowerCase();
+    const option = Array.from(select.options).find((item) => item.textContent.toLowerCase().includes(expected) || item.value.toLowerCase().includes(expected));
+    if (!option) return null;
+    select.value = option.value;
+    select.dispatchEvent(new Event('input', { bubbles: true }));
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+    return { value: option.value, text: option.textContent };
+  `, select, rendered)
+  assert.ok(selected, `Select ${name} no tiene opcion que contiene ${rendered}`)
+  await driver.sleep(350)
+})
+
+When('marco el checkbox name {string}', async function (this: UlviorWorld, name: string) {
+  const driver = ensureDriver(this)
+  const checkbox = await driver.wait(
+    until.elementLocated(By.css(`input[type="checkbox"][name="${name}"]`)),
+    ENV.SELENIUM_TIMEOUT,
+    `No se encontro checkbox name=${name}`,
+  )
+  const checked = await checkbox.isSelected()
+  if (!checked) await checkbox.click()
+  await driver.sleep(250)
+})
+
+When('agrego tags en el campo con placeholder {string} con {string}', async function (this: UlviorWorld, placeholder: string, values: string) {
+  const driver = ensureDriver(this)
+  const rendered = renderTemplate(values)
+  const input = await driver.wait(
+    until.elementLocated(By.css(`input[placeholder="${placeholder}"]`)),
+    ENV.SELENIUM_TIMEOUT,
+    `No se encontro input de tags placeholder=${placeholder}`,
+  )
+  await driver.executeScript('arguments[0].scrollIntoView({block:"center"})', input)
+  for (const raw of rendered.split(',').map((item) => item.trim()).filter(Boolean)) {
+    await input.sendKeys(raw)
+    await input.sendKeys(Key.ENTER)
+    await driver.sleep(180)
+  }
+})
+
+Then('backend admin debe encontrar en pipeline el texto {string}', async function (this: UlviorWorld, expectedText: string) {
+  const expected = renderTemplate(expectedText)
+  const login = await this.apiClient.post('/auth/login', {
+    email: ENV.TEST_ADMIN_EMAIL,
+    password: ENV.TEST_ADMIN_PASSWORD,
+  })
+  this.lastApiEvidence = login.evidence
+  assert.ok([200, 201].includes(login.response.status), `Login API admin fallo con ${login.response.status}`)
+  const result = await this.apiClient.get('/admin/pipeline')
+  this.lastApiEvidence = result.evidence
+  this.lastResponse = result.response
+  assert.ok([200, 204].includes(result.response.status), `GET /admin/pipeline fallo con ${result.response.status}`)
+  assert.ok(
+    JSON.stringify(result.response.data).includes(expected),
+    `No se encontro "${expected}" en /admin/pipeline`,
+  )
+})
+
+Then('diagnostico el formulario de nueva busqueda admin', async function (this: UlviorWorld) {
+  const driver = ensureDriver(this)
+  const snapshot = await driver.executeScript(`
+    const valueOf = (selector) => document.querySelector(selector)?.value ?? null;
+    const text = (selector) => Array.from(document.querySelectorAll(selector)).map((el) => (el.innerText || el.textContent || '').trim()).filter(Boolean);
+    return {
+      empresa_id: valueOf('[name="empresa_id"]'),
+      rol: valueOf('[name="rol"]'),
+      seniority: valueOf('[name="seniority"]'),
+      modalidad: valueOf('[name="modalidad"]'),
+      descripcionLength: valueOf('[name="descripcion"]')?.length ?? null,
+      salario_min: valueOf('[name="salario_min"]'),
+      salario_max: valueOf('[name="salario_max"]'),
+      fee_estimado: valueOf('[name="fee_estimado"]'),
+      urgente: document.querySelector('[name="urgente"]')?.checked ?? null,
+      notasLength: valueOf('[name="notas_internas"]')?.length ?? null,
+      tags: text('span'),
+      bodySample: (document.body.innerText || '').slice(0, 1600)
+    }
+  `)
+  const formSnapshot = snapshot as any
+  this.lastApiEvidence = {
+    method: 'UI',
+    url: await driver.getCurrentUrl(),
+    headers: {},
+    status: 200,
+    response: formSnapshot,
+    durationMs: 0,
+  }
+  assert.ok(formSnapshot, 'No se pudo leer formulario admin')
 })

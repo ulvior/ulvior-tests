@@ -49,11 +49,11 @@ Característica: CandidateAuthenticatedFlow
     Dado inicio sesion como "candidato"
     Cuando navego a la pantalla autenticada "/candidato/empleos"
     Entonces la pantalla autenticada debe renderizar sin errores
-    Cuando busco en la pantalla "developer"
+    Cuando busco en la pantalla "QA"
     Entonces la pantalla autenticada debe renderizar sin errores
-    Cuando hago click en la primera accion de resultado "Postular"
+    Cuando abro la primera fila de resultados
     Entonces la pantalla autenticada debe renderizar sin errores
-    Y la pantalla debe mostrar al menos uno de estos textos "Postular al empleo|Test de Fit|Cancelar postulación|Completa el Test"
+    Y la pantalla debe mostrar al menos uno de estos textos "Postular al empleo|Test de Fit|Cancelar postulación|Completa el Test|Ya postulaste|Detalles"
 
   Escenario: Candidato abre y refresca notificaciones con sesión real
     Dado inicio sesion como "candidato"

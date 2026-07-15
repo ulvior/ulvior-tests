@@ -11,6 +11,7 @@ const values: Record<string, string> = {
   TEST_ADMIN_EMAIL: ENV.TEST_ADMIN_EMAIL,
   TEST_ADMIN_PASSWORD: ENV.TEST_ADMIN_PASSWORD,
   INTERNAL_API_TOKEN: ENV.INTERNAL_API_TOKEN,
+  E2E_RUN_ID: ENV.E2E_RUN_ID,
 }
 
 export function renderTemplate(input: string): string {

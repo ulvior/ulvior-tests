@@ -16,7 +16,7 @@ export async function buildDriver(): Promise<WebDriver> {
     '--no-sandbox',
     '--disable-dev-shm-usage',
     '--disable-gpu',
-    '--window-size=1440,900',
+    `--window-size=${ENV.BROWSER_WIDTH},${ENV.BROWSER_HEIGHT}`,
     '--disable-extensions',
     '--disable-popup-blocking',
     '--disable-infobars',
@@ -37,6 +37,21 @@ export async function buildDriver(): Promise<WebDriver> {
     pageLoad: 30000,
     script: 10000,
   })
+
+  await driver.manage().window().setRect({
+    width: ENV.BROWSER_WIDTH,
+    height: ENV.BROWSER_HEIGHT,
+    x: 0,
+    y: 0,
+  })
+
+  if (ENV.BROWSER_MAXIMIZE) {
+    try {
+      await driver.manage().window().maximize()
+    } catch {
+      // Headless environments can reject maximize; explicit dimensions remain active.
+    }
+  }
 
   return driver
 }

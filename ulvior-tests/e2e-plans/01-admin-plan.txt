@@ -1,0 +1,117 @@
+ULVIOR QA E2E - PLAN VIVO ADMIN
+
+Objetivo:
+Inventariar y probar todo el backoffice admin: pantallas, botones, formularios, modales, filtros, tablas, acciones operativas, notificaciones y consistencia backend.
+
+Pantallas iniciales a inventariar:
+- /admin/dashboard
+- /admin/ai-scraping
+- /admin/candidatos
+- /admin/candidatos/:id
+- /admin/candidatos/:id/editar si existe
+- /admin/empresas
+- /admin/empresas/:id
+- /admin/pipeline
+- /admin/pipeline/nueva
+- /admin/pipeline/:id
+- /admin/pipeline/:id/shortlist si existe
+- /admin/pipeline/:id/garantia si existe
+- /admin/solicitudes
+- /admin/solicitudes/:id si existe
+- /admin/entrevistas
+- /admin/entrevistas/:id si existe
+- /admin/procesos
+- /admin/contratos
+- /admin/facturacion
+- /admin/pagos
+- /admin/metricas
+- Panel de notificaciones
+- Logout
+
+Inventario requerido por pantalla:
+- Screenshot base.
+- Lista de botones visibles.
+- Lista de links/acciones visibles.
+- Lista de inputs/selects/textareas/checkboxes.
+- Tabla o cards visibles.
+- Estados vacios y estados con datos.
+- Errores de consola o render.
+
+Casos obligatorios:
+- Login admin exitoso.
+- Navegacion lateral completa.
+- Cada boton visible se clasifica como:
+  - Navegacion.
+  - Abre modal.
+  - Ejecuta accion.
+  - Submit formulario.
+  - Destructivo/bloqueado.
+- Formularios admin:
+  - Crear busqueda.
+  - Editar candidato si existe.
+  - Crear/editar empresa si existe.
+  - Generar invitacion si existe.
+  - Gestionar solicitud si existe.
+  - Crear entrevista si existe.
+  - Contratos/facturacion/pagos si hay formulario visible.
+- Filtros y busquedas:
+  - Buscar candidato.
+  - Buscar empresa.
+  - Buscar pipeline/proceso.
+  - Filtros scraping.
+- Notificaciones:
+  - Abrir panel.
+  - Refresh.
+  - Marcar leidas si existe.
+- Logout y back-button.
+
+Validacion backend/API:
+- /auth/me
+- /admin/metricas
+- /admin/candidatos
+- /admin/empresas
+- /admin/pipeline
+- /admin/solicitudes
+- /admin/entrevistas
+- /admin/ai/evaluaciones
+- /admin/ai/scraping/historial
+- /admin/service-orders
+- Endpoint especifico de cada accion creada.
+
+Estado:
+- Inventario visual automatizado completado.
+- Evidencia JSON: /Users/jimmyhusteexantus/Desktop/ulvior/ulvior-tests/e2e-inventory/E2E-20260713-ULVIOR-QA-001/admin/admin-inventory.json
+- Evidencia legible: /Users/jimmyhusteexantus/Desktop/ulvior/ulvior-tests/e2e-inventory/E2E-20260713-ULVIOR-QA-001/admin/admin-inventory-readable.txt
+- Screenshots: /Users/jimmyhusteexantus/Desktop/ulvior/ulvior-tests/e2e-inventory/E2E-20260713-ULVIOR-QA-001/admin/screenshots
+
+Resultado inventario Admin:
+- Rutas inventariadas: 13.
+- Botones/links detectados: 223.
+- Campos detectados: 19.
+- Formularios detectados: 1.
+- Errores de consola en rutas base: 0.
+- Clicks seguros explorados: 220.
+- Click errors: 0.
+
+Acciones que requieren caso controlado:
+- /admin/ai-scraping -> "Ejecutar scraping": requiere datos y validacion backend/AI antes de disparar.
+- /admin/pipeline/nueva -> "Cancelar": validar navegacion/descartar cambios sin crear datos.
+- /admin/pipeline/nueva -> "Crear búsqueda": llenar formulario con Run ID y validar persistencia backend.
+
+Proximo desarrollo Admin:
+- Crear prueba UI/API para formulario /admin/pipeline/nueva. COMPLETADO.
+- Crear prueba UI/API para cancelar /admin/pipeline/nueva. COMPLETADO.
+- Crear prueba controlada para scraping AI si el ambiente permite ejecutar sin costo/riesgo alto.
+- Convertir inventario de botones a escenarios Cucumber generados o step parametrizado por ruta/accion.
+
+Pruebas controladas ejecutadas:
+- Feature: /Users/jimmyhusteexantus/Desktop/ulvior/ulvior-tests/features/ui/AdminControlledActions.feature
+- PDF: /Users/jimmyhusteexantus/Desktop/ulvior/ulvior-tests/e2e-reports/E2E-20260713-ULVIOR-QA-001/pdfs/admin-controlled-actions.pdf
+- Evidencia: /Users/jimmyhusteexantus/Desktop/ulvior/ulvior-tests/e2e-reports/E2E-20260713-ULVIOR-QA-001/api-responses/admin-controlled-evidence.json
+- Resultado: 2 escenarios, 25 pasos, 25 passed.
+
+Bug corregido durante Admin:
+- Pantalla: /admin/pipeline/nueva
+- Problema: el formulario enviaba enums de seniority/modalidad con labels humanos (Junior/Mid/Senior, Remoto/Híbrido/Presencial), pero backend valida valores canonicos (junior/mid/senior/lead, remoto/hibrido/presencial).
+- Cambio: /Users/jimmyhusteexantus/Desktop/ulvior/ulvior-web/src/views/admin/NuevaBusquedaAdmin.jsx ahora usa values backend y labels humanos.
+- Verificacion: crear busqueda "QA E2E-20260713-ULVIOR-QA-001 Backend Engineer" pasa UI y backend /admin/pipeline la encuentra.

@@ -1,0 +1,56 @@
+Run ID: E2E-20260713-ULVIOR-QA-001
+Modo: navegador visible, pantalla maximizada, screenshots limpios segun alcance de corrida.
+
+Reglas de ejecucion:
+- Si la corrida es full, se limpian reports/screenshots, reports/pdfs, reports/json, reports/evidence y e2e-reports/<RUN_ID>/{screenshots,api-responses,logs,emails,pdfs}.
+- Si la corrida es por flujo, solo se limpian screenshots, PDFs, JSON y evidencia del flujo correspondiente:
+  - admin: AdminBackendE2E, AdminAuthenticatedFlow, AdminControlledActions.
+  - candidato: CandidateBackendE2E, CandidateAuthenticatedFlow, CandidateControlledActions.
+  - empresa: CompanyBackendE2E, CompanyAuthenticatedFlow, CompanyControlledActions.
+- No se borran e2e-plans, fixtures ni inventarios.
+- Cada flujo puede correr separado:
+  - npm run test:flow:admin
+  - npm run test:flow:candidato
+  - npm run test:flow:empresa
+  - npm run test:flow:full
+- El navegador debe verse abierto en Chrome, no en modo headless.
+- El viewport debe ser 1920x1200 y maximizado antes de tomar screenshots.
+
+Checklist Admin:
+- Preparar datos trazables A-Z con RUN_ID y reutilizarlos dentro de la misma corrida si ya existen.
+- Validar pipeline con busquedas en etapas distintas y perfiles distintos: Java backend, DevOps platform, Frontend React, Go backend billing/colocacion.
+- Validar que hay datos suficientes en dashboard y pipeline.
+- Validar candidato asignado a busqueda.
+- Validar entrevistas tipo Ulvior y tipo cliente visibles en admin.
+- Validar facturacion: factura creada con perfil tributario completo.
+- Validar pagos: pago completado visible.
+- Marcar entrevista realizada por endpoint admin publico, seleccionar candidato y colocar cuando la regla de negocio lo permita.
+- Validar que dashboard empresa refleje colocacion (> 0) y que admin vea orden/factura/pago.
+
+Checklist Candidato:
+- Login candidato visible.
+- Perfil y documentos: CV disponible y analizado.
+- Evaluacion AI reconoce CV.
+- Evaluacion coding: abrir challenge, ejecutar codigo, analizar con IA.
+- Generar/responder todas las preguntas tecnicas.
+- Validar persistencia de respuestas por backend y UI despues de recarga.
+- Procesos: debe ver busquedas E2E creadas.
+- Entrevistas: debe ver entrevista Ulvior y cliente.
+- Proponer horario: abrir modal, validar formulario y cancelar sin dañar estado.
+- Confirmar/rechazar/proponer se prueba con backend cuando UI lo permita sin destruir otros casos.
+
+Checklist Empresa:
+- Login empresa visible.
+- Dashboard con datos y colocacion visible por backend.
+- Busquedas: crear busqueda desde formulario, validar busqueda E2E en listado.
+- Shortlist/profesionales: validar candidato disponible/asignado cuando backend lo expone.
+- Entrevistas: ver agenda, crear/proponer entrevista cliente si hay shortlist activo.
+- Solicitudes: crear/validar solicitud para candidato E2E.
+- Cuenta/facturacion: orden de servicio aceptada, factura emitida, pago completado.
+- Admin debe poder ver la misma orden/factura/pago.
+
+Checklist final:
+- Ejecutar full visible.
+- Corregir fallos encontrados.
+- Regenerar PDFs por flujo y master.
+- Verificar PDFs legibles y conteo de escenarios/pasos sin fallos.

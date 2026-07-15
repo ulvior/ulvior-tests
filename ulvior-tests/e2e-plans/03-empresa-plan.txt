@@ -1,0 +1,85 @@
+ULVIOR QA E2E - PLAN VIVO EMPRESA
+
+Objetivo:
+Inventariar y probar todo el portal empresa: dashboard, perfil, busquedas, profesionales, solicitudes, entrevistas, analytics, cuenta/facturacion, service orders, contratos, facturas, pagos, notificaciones y persistencia.
+
+Pantallas iniciales a inventariar:
+- /empresa/dashboard
+- /empresa/perfil
+- /empresa/busquedas
+- /empresa/busquedas/nueva
+- /empresa/busquedas/historial
+- /empresa/busquedas/:id si existe
+- /empresa/busquedas/:id/shortlist si existe
+- /empresa/profesionales
+- /empresa/profesionales/:id si existe
+- /empresa/mis-solicitudes
+- /empresa/entrevistas
+- /empresa/analytics
+- /empresa/cuenta-facturacion
+- /empresa/cuenta-facturacion/service-orders/:id si existe
+- Panel de notificaciones
+- Logout
+
+Inventario requerido por pantalla:
+- Screenshot base.
+- Lista de botones visibles.
+- Lista de links/acciones visibles.
+- Lista de inputs/selects/textareas/checkboxes.
+- Tabla o cards visibles.
+- Estados vacios y estados con datos.
+- Calculos comerciales visibles: fee, condiciones, aceptacion.
+
+Casos obligatorios:
+- Login empresa exitoso.
+- Editar perfil empresa.
+- Crear busqueda con datos QA.
+- Validar errores del formulario de nueva busqueda.
+- Buscar/filtrar busquedas.
+- Abrir detalle de busqueda.
+- Revisar shortlist/candidatos si existen.
+- Profesionales:
+  - Buscar.
+  - Abrir perfil.
+  - Solicitar profesional si boton existe.
+- Mis solicitudes:
+  - Abrir detalle si existe.
+  - Ver estados.
+- Entrevistas:
+  - Abrir agenda/listado.
+  - Confirmar/feedback/decision solo si es seguro.
+- Analytics:
+  - Carga sin errores.
+  - Datos consistentes con API.
+- Cuenta/facturacion:
+  - Crear orden de servicio si existe formulario.
+  - Validar calculo fee.
+  - Ver condiciones.
+  - Aceptar condiciones si es seguro.
+  - Ver contratos/facturas/pagos.
+- Notificaciones:
+  - Abrir panel.
+  - Refresh.
+  - Marcar leidas si existe.
+- Logout y back-button.
+
+Validacion backend/API:
+- /auth/me
+- /empresa/dashboard
+- /empresa/perfil
+- /empresa/busquedas
+- /empresa/busquedas/historial
+- /empresa/profesionales
+- /empresa/solicitudes
+- /empresa/entrevistas
+- /analytics/empresa
+- /empresa/cuenta-facturacion/resumen
+- /empresa/service-orders
+- /empresa/contracts
+- /empresa/invoices
+- /empresa/payments
+- /notificaciones
+
+Estado:
+- Pendiente inventario visual automatizado.
+- Pendiente desarrollo de pruebas exhaustivas por boton/formulario.

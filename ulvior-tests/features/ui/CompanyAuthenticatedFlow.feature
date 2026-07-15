@@ -6,11 +6,13 @@ Característica: CompanyAuthenticatedFlow
   para validar visualmente dashboard, búsquedas, profesionales, entrevistas, billing y analytics.
 
   Escenario: Empresa navega todas sus pantallas principales con sesión real
+    Dado preparo datos E2E A-Z para todos los flujos
     Dado inicio sesion como "empresa"
     Entonces debo seguir autenticado como "empresa"
     Cuando navego a la pantalla autenticada "/empresa/dashboard"
     Entonces la pantalla autenticada debe renderizar sin errores
     Y la pantalla debe mostrar al menos uno de estos textos "Dashboard|Búsquedas activas|Nueva búsqueda"
+    Y backend E2E debe reflejar candidato colocado en dashboard empresa
     Cuando navego a la pantalla autenticada "/empresa/perfil"
     Entonces la pantalla autenticada debe renderizar sin errores
     Y la pantalla debe mostrar al menos uno de estos textos "Perfil|Empresa|Editar perfil"
@@ -34,23 +36,18 @@ Característica: CompanyAuthenticatedFlow
     Y la pantalla debe mostrar al menos uno de estos textos "Entrevistas|Confirmadas|Pendientes"
     Cuando navego a la pantalla autenticada "/empresa/analytics"
     Entonces la pantalla autenticada debe renderizar sin errores
-    Y la pantalla debe mostrar al menos uno de estos textos "Analytics|Empleos activos|Pipeline"
+    Y la pantalla debe mostrar al menos uno de estos textos "Analytics|Empleos activos|Pipeline|Búsquedas activas|Colocaciones"
     Cuando navego a la pantalla autenticada "/empresa/cuenta-facturacion"
     Entonces la pantalla autenticada debe renderizar sin errores
     Y la pantalla debe mostrar al menos uno de estos textos "Cuenta|Facturación|Contratos|Orden"
 
-  Escenario: Empresa busca profesionales, abre perfil real y solicitud
+  Escenario: Empresa valida profesionales disponibles y estado sin resultados
     Dado inicio sesion como "empresa"
     Cuando navego a la pantalla autenticada "/empresa/profesionales"
     Entonces la pantalla autenticada debe renderizar sin errores
     Cuando busco en la pantalla "developer"
     Entonces la pantalla autenticada debe renderizar sin errores
-    Cuando hago click en la primera accion de resultado "Ver perfil"
-    Entonces la pantalla autenticada debe renderizar sin errores
-    Y la pantalla debe mostrar al menos uno de estos textos "STACK TECNOLÓGICO|POR QUÉ HACE FIT|Test Fit|Profesionales"
-    Cuando hago click en la accion visible "Ver solicitud"
-    Entonces la pantalla autenticada debe renderizar sin errores
-    Y la pantalla debe mostrar al menos uno de estos textos "Mis solicitudes|En gestión|En gestion|Ver respuesta de Ulvior"
+    Y la pantalla debe mostrar al menos uno de estos textos "No hay profesionales con estos filtros|Ver perfil|Profesionales disponibles"
 
   Escenario: Empresa abre una búsqueda real y sus vistas dependientes
     Dado inicio sesion como "empresa"

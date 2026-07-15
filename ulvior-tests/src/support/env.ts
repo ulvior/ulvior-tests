@@ -20,7 +20,11 @@ export const ENV = {
   TEST_ADMIN_EMAIL:       process.env.TEST_ADMIN_EMAIL      ?? '',
   TEST_ADMIN_PASSWORD:    process.env.TEST_ADMIN_PASSWORD   ?? '',
   INTERNAL_API_TOKEN:     process.env.INTERNAL_API_TOKEN    ?? '',
+  E2E_RUN_ID:             process.env.E2E_RUN_ID            ?? 'E2E-20260713-ULVIOR-QA-001',
 
   HEADLESS:               process.env.HEADLESS !== 'false',
   SELENIUM_TIMEOUT:       parseInt(process.env.SELENIUM_TIMEOUT ?? '30000', 10),
+  BROWSER_WIDTH:          parseInt(process.env.BROWSER_WIDTH ?? '1920', 10),
+  BROWSER_HEIGHT:         parseInt(process.env.BROWSER_HEIGHT ?? '1200', 10),
+  BROWSER_MAXIMIZE:       process.env.BROWSER_MAXIMIZE !== 'false',
 }
