@@ -57,3 +57,11 @@ setup-supabase.sql
 
 # ─── Documentos generados ────────────────────────────────────────────────────
 *.docx
+
+
+ulvior-tests/node_modules/
+ulvior-tests/reports/
+ulvior-tests/e2e-inventory/
+ulvior-tests/e2e-reports/
+ulvior-tests/tmp/
+ulvior-tests/.env.local

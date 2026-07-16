@@ -15,7 +15,6 @@ Característica: WebPublicRoutes
       | /                            | Ulvior                 |
       | /login                       | Iniciar sesión         |
       | /unauthorized                | 403                    |
-      | /flujos                      | Ulvior                 |
       | /registro/candidato          | Crear                  |
       | /registro/empresa/bdd-code   | invitación             |
       | /verificar-email             | Verificar              |
