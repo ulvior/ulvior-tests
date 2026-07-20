@@ -85,6 +85,75 @@ Característica: AiCoreEndpoints
       """
     Entonces el status HTTP debe ser uno de "200, 404"
 
+  Escenario: Generar preguntas adaptativas desde código frontend real
+    Dado que uso el servicio "ai"
+    Cuando envio POST a "/assessments" con JSON:
+      """
+      {
+        "company_id": "bdd-company-frontend",
+        "job_id": "bdd-job-frontend",
+        "candidate": {
+          "candidate_id": "bdd-frontend-candidate",
+          "name": "Frontend Candidate",
+          "years_experience": 3,
+          "seniority_declared": "middle",
+          "target_role": "Frontend Engineer",
+          "skills": ["React", "TypeScript"],
+          "tools": [],
+          "summary": "Frontend engineer focused on UI logic, state and data transformation."
+        },
+        "job_profile": {
+          "role_name": "Frontend Engineer",
+          "role_type": "frontend",
+          "seniority": "middle",
+          "years_required": 3,
+          "required_stack": ["React", "TypeScript"],
+          "preferred_stack": [],
+          "tools": ["React", "TypeScript"],
+          "competencies": ["code_quality", "ui_state_management", "testing"],
+          "evaluation_weights": {
+            "code": 25,
+            "questions": 20,
+            "experience": 15,
+            "jd_fit": 15,
+            "interview": 20,
+            "confidence": 5
+          },
+          "summary": "Frontend role"
+        }
+      }
+      """
+    Entonces el status HTTP debe ser 201
+    Y guardo la propiedad "assessment_id" como "FRONTEND_ASSESSMENT_ID"
+    Cuando envio POST a "/questions/generate" con JSON:
+      """
+      {
+        "assessment_id": "{{ FRONTEND_ASSESSMENT_ID }}",
+        "max_questions": 4,
+        "focus_areas": ["React", "TypeScript"],
+        "submitted_code": "export function normalizeProductCards(items) { if (!Array.isArray(items)) return []; return items.filter((item) => item && item.visible).map((item) => ({ id: item.id, title: item.title || 'Sin titulo' })); }",
+        "language": "typescript",
+        "challenge": {
+          "title": "Desafio tecnico para Frontend Engineer",
+          "language": "typescript"
+        },
+        "code_analysis": {
+          "score": 78,
+          "language_detected": "typescript",
+          "feedback": {
+            "summary": "Transforma datos con validaciones basicas.",
+            "strengths": ["Valida listas"],
+            "improvements": ["Agregar tests"]
+          }
+        }
+      }
+      """
+    Entonces el status HTTP debe ser 200
+    Y la respuesta JSON debe contener el texto "normalizeProductCards"
+    Y la respuesta JSON no debe contener el texto "Spring Boot"
+    Y la respuesta JSON no debe contener el texto "EKS"
+    Y la respuesta JSON no debe contener el texto "microservicios"
+
   Escenario: Responder pregunta técnica
     Dado que uso el servicio "ai"
     Cuando envio POST a "/questions/answer" con JSON:

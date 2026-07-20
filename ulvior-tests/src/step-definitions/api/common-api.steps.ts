@@ -2,7 +2,7 @@ import assert from 'assert'
 import { Given, When, Then } from '@cucumber/cucumber'
 import { UlviorWorld } from '../../support/world'
 import { ApiClient } from '../../utils/api-client'
-import { parseJsonTemplate, renderTemplate } from '../../utils/template'
+import { parseJsonTemplate, renderTemplate, setTemplateValue } from '../../utils/template'
 
 function clientFor(world: UlviorWorld, name: string): ApiClient {
   const normalized = name.toLowerCase()
@@ -85,6 +85,22 @@ Then('el status HTTP debe ser uno de {string}', function (this: UlviorWorld, sta
 Then('la respuesta debe contener la propiedad {string}', function (this: UlviorWorld, propertyPath: string) {
   const value = propertyPath.split('.').reduce((acc, key) => acc?.[key], this.lastResponse?.data)
   assert.notStrictEqual(value, undefined, `No existe la propiedad ${propertyPath}`)
+})
+
+Then('guardo la propiedad {string} como {string}', function (this: UlviorWorld, propertyPath: string, templateKey: string) {
+  const value = propertyPath.split('.').reduce((acc, key) => acc?.[key], this.lastResponse?.data)
+  assert.ok(value !== undefined && value !== null && String(value).length > 0, `No existe valor en ${propertyPath}`)
+  setTemplateValue(templateKey, String(value))
+})
+
+Then('la respuesta JSON debe contener el texto {string}', function (this: UlviorWorld, expectedText: string) {
+  const payload = JSON.stringify(this.lastResponse?.data ?? {})
+  assert.ok(payload.includes(expectedText), `La respuesta no contiene "${expectedText}"`)
+})
+
+Then('la respuesta JSON no debe contener el texto {string}', function (this: UlviorWorld, forbiddenText: string) {
+  const payload = JSON.stringify(this.lastResponse?.data ?? {})
+  assert.ok(!payload.includes(forbiddenText), `La respuesta contiene texto no permitido "${forbiddenText}"`)
 })
 
 Then('guardo el token de la respuesta desde {string}', function (this: UlviorWorld, propertyPath: string) {

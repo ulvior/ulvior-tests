@@ -14,6 +14,10 @@ const values: Record<string, string> = {
   E2E_RUN_ID: ENV.E2E_RUN_ID,
 }
 
+export function setTemplateValue(key: string, value: string): void {
+  values[key] = value
+}
+
 export function renderTemplate(input: string): string {
   return input.replace(/\{\{\s*([A-Z0-9_]+)\s*\}\}/g, (_, key) => values[key] ?? '')
 }
