@@ -39,3 +39,9 @@ Característica: CandidatoApi
       | GET    | /candidato/postulaciones                        |
       | POST   | /candidato/empleos/00000000-0000-0000-0000-000000000000/postular |
       | DELETE | /candidato/postulaciones/00000000-0000-0000-0000-000000000000 |
+      | GET    | /candidato/privacidad                           |
+      | GET    | /candidato/privacidad/terminos                  |
+      | GET    | /candidato/privacidad/exportar                  |
+      | POST   | /candidato/privacidad/consentimientos/ia_evaluacion |
+      | DELETE | /candidato/privacidad/consentimientos/ia_evaluacion |
+      | POST   | /candidato/privacidad/solicitudes               |

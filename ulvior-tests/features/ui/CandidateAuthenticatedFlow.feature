@@ -10,7 +10,7 @@ Característica: CandidateAuthenticatedFlow
     Entonces debo seguir autenticado como "candidato"
     Cuando navego a la pantalla autenticada "/candidato/home"
     Entonces la pantalla autenticada debe renderizar sin errores
-    Y la pantalla debe mostrar al menos uno de estos textos "Inicio|Completa tu Test|Ulvior"
+    Y la pantalla debe mostrar al menos uno de estos textos "Bienvenido|Empleos recomendados|Próxima entrevista"
     Cuando navego a la pantalla autenticada "/candidato/perfil"
     Entonces la pantalla autenticada debe renderizar sin errores
     Y la pantalla debe mostrar al menos uno de estos textos "Perfil|Mi perfil|Editar perfil"
@@ -53,7 +53,7 @@ Característica: CandidateAuthenticatedFlow
     Entonces la pantalla autenticada debe renderizar sin errores
     Cuando abro la primera fila de resultados
     Entonces la pantalla autenticada debe renderizar sin errores
-    Y la pantalla debe mostrar al menos uno de estos textos "Postular al empleo|Test de Fit|Cancelar postulación|Completa el Test|Ya postulaste|Detalles"
+    Y la pantalla debe mostrar al menos uno de estos textos "Postular ahora|Descripción|Requisitos|Tu stack vs requerido"
 
   Escenario: Candidato abre y refresca notificaciones con sesión real
     Dado inicio sesion como "candidato"

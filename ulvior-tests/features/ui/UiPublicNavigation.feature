@@ -8,7 +8,7 @@ Característica: UiPublicNavigation
   Escenario: Landing muestra CTA y permite ir a empleos públicos
     Dado abro la pagina "/"
     Entonces debo ver el texto "Ulvior"
-    Y debo ver el texto "Contrata talento TI"
+    Y debo ver el texto "Encuentra talento TI"
     Cuando hago click en el enlace "Empleos"
     Entonces la URL debe contener "/empleos"
     Y espero que la pagina termine de cargar

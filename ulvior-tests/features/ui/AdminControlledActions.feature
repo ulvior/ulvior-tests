@@ -48,9 +48,9 @@ Característica: AdminControlledActions
     Y selecciono la primera opcion valida del select name "modalidad"
     Y agrego tags en el campo con placeholder "Node.js, React, PostgreSQL..." con "Node.js, NestJS, PostgreSQL"
     Y completo el campo con name "descripcion" con "Busqueda E2E controlada {{E2E_RUN_ID}} para validar formulario admin, persistencia backend y trazabilidad."
-    Y completo el campo con name "salario_min" con "3000"
-    Y completo el campo con name "salario_max" con "4500"
-    Y completo el campo con name "fee_estimado" con "1200"
+    Y completo el campo con name "salario_min" con "3000000"
+    Y completo el campo con name "salario_max" con "4500000"
+    Y completo el campo con name "fee_estimado" con "1200000"
     Y marco el checkbox name "urgente"
     Y completo el campo con name "notas_internas" con "Notas QA {{E2E_RUN_ID}} creadas desde prueba automatizada."
     Entonces diagnostico el formulario de nueva busqueda admin

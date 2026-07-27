@@ -1,20 +1,20 @@
 [
   {
-    "description": "  Como QA E2E\n  quiero ejecutar acciones controladas del flujo candidato\n  para validar formularios, CV, evaluacion AI, coding y persistencia con evidencia UI/backend.",
+    "description": "  Como QA\n  quiero validar visualmente los consentimientos en registros públicos\n  para asegurar que candidato y empresa no avancen sin aceptar las condiciones requeridas.",
     "elements": [
       {
         "description": "",
-        "id": "candidatecontrolledactions;candidato-ejecuta-coding-desde-navegador-y-backend-persiste-ejecucion",
+        "id": "consentimientosui;registro-de-candidato-muestra-consentimientos-y-bloquea-sin-aceptar-los-obligatorios",
         "keyword": "Escenario",
-        "line": 50,
-        "name": "Candidato ejecuta coding desde navegador y backend persiste ejecucion",
+        "line": 8,
+        "name": "Registro de candidato muestra consentimientos y bloquea sin aceptar los obligatorios",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 368375
+              "duration": 750625
             }
           },
           {
@@ -22,189 +22,228 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 2365175624
+              "duration": 2201820666
             }
           },
           {
             "arguments": [],
             "keyword": "Dado ",
-            "line": 51,
-            "name": "inicio sesion como \"candidato\"",
+            "line": 9,
+            "name": "abro la pagina \"/registro/candidato\"",
             "match": {
-              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:103"
+              "location": "src/step-definitions/ui/common-ui.steps.ts:20"
             },
             "result": {
               "status": "passed",
-              "duration": 3307059333
+              "duration": 2228327205
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Entonces ",
+            "line": 10,
+            "name": "debo ver el texto \"Crear cuenta\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 120252833
             }
           },
           {
             "arguments": [],
             "keyword": "Cuando ",
-            "line": 52,
-            "name": "navego a la pantalla autenticada \"/candidato/evaluacion-coding\"",
+            "line": 11,
+            "name": "completo el input \"Nombre completo\" con \"QA Consentimiento Candidato\"",
             "match": {
-              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:125"
+              "location": "src/step-definitions/ui/common-ui.steps.ts:29"
             },
             "result": {
               "status": "passed",
-              "duration": 3077005498
+              "duration": 255789916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 12,
+            "name": "completo el input \"Email\" con \"qa.ui.candidato.{{E2E_RUN_ID}}@ulvior.test\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 203302459
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 13,
+            "name": "completo el input \"Contraseña\" con \"Candidate123!\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 183430334
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 14,
+            "name": "completo el input \"Confirmar contraseña\" con \"Candidate123!\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 194694915
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 15,
+            "name": "hago click en el boton \"Continuar\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:40"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 210430417
             }
           },
           {
             "arguments": [],
             "keyword": "Entonces ",
-            "line": 53,
-            "name": "la pantalla autenticada debe renderizar sin errores",
+            "line": 16,
+            "name": "debo ver checkbox asociado al texto \"Términos y Condiciones\"",
             "match": {
-              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:131"
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:79"
             },
             "result": {
               "status": "passed",
-              "duration": 1942675916
+              "duration": 150542374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 17,
+            "name": "debo ver checkbox asociado al texto \"Política de Privacidad\"",
+            "match": {
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:79"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 123239121
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 18,
+            "name": "debo ver checkbox asociado al texto \"perfil será evaluado con inteligencia artificial\"",
+            "match": {
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:79"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 123052957
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 19,
+            "name": "debo ver checkbox asociado al texto \"recibir novedades y oportunidades laborales\"",
+            "match": {
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:79"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 118872998
             }
           },
           {
             "arguments": [],
             "keyword": "Cuando ",
-            "line": 54,
-            "name": "cargo una solucion JavaScript valida en el editor coding",
+            "line": 20,
+            "name": "selecciono la opcion visible \"Backend Engineer\"",
             "match": {
-              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:352"
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 6718618583
+              "duration": 836266622
             }
           },
           {
             "arguments": [],
             "keyword": "Y ",
-            "line": 55,
-            "name": "ejecuto el codigo candidato desde UI",
+            "line": 21,
+            "name": "selecciono la opcion visible \"Node.js\"",
             "match": {
-              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:401"
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 3640228580
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 56,
-            "name": "backend coding candidato debe tener ejecucion exitosa",
-            "match": {
-              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:477"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1211202208
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Cuando ",
-            "line": 57,
-            "name": "evaluo el codigo candidato con IA si esta habilitado",
-            "match": {
-              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:431"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1427979915
+              "duration": 846437040
             }
           },
           {
             "arguments": [],
             "keyword": "Y ",
-            "line": 58,
-            "name": "candidato responde todas las preguntas tecnicas coding por backend",
+            "line": 22,
+            "name": "selecciono la opcion visible \"3–5 años\"",
             "match": {
-              "location": "src/step-definitions/api/e2e-lifecycle.steps.ts:535"
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 19206273580
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 59,
-            "name": "backend candidato debe tener evidencia coding completa y score comercial",
-            "match": {
-              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:488"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1684946791
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Entonces ",
-            "line": 60,
-            "name": "la pantalla autenticada debe renderizar sin errores",
-            "match": {
-              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:131"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 152604123
+              "duration": 837254457
             }
           },
           {
             "arguments": [],
             "keyword": "Y ",
-            "line": 61,
-            "name": "backend evaluacion AI candidato debe responder 200 y reconocer CV",
+            "line": 23,
+            "name": "hago click en el boton \"Crear cuenta gratis\"",
             "match": {
-              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:467"
+              "location": "src/step-definitions/ui/common-ui.steps.ts:40"
             },
             "result": {
               "status": "passed",
-              "duration": 2411515209
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Cuando ",
-            "line": 62,
-            "name": "navego a la pantalla autenticada \"/candidato/evaluacion-coding\"",
-            "match": {
-              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:125"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2290823916
+              "duration": 173839665
             }
           },
           {
             "arguments": [],
             "keyword": "Entonces ",
-            "line": 63,
-            "name": "la pantalla debe mostrar al menos uno de estos textos \"Preguntas|Resultados|Score|Evaluación\"",
+            "line": 24,
+            "name": "debo ver el texto \"Debes aceptar los Términos y Condiciones y la Política de Privacidad\"",
             "match": {
-              "location": "src/step-definitions/ui/authenticated-ui.steps.ts:147"
+              "location": "src/step-definitions/ui/common-ui.steps.ts:52"
             },
             "result": {
               "status": "passed",
-              "duration": 146301123
+              "duration": 168382791
             }
           },
           {
             "arguments": [],
             "keyword": "Y ",
-            "line": 64,
-            "name": "la consola del navegador no debe tener errores severos",
+            "line": 25,
+            "name": "la URL no debe contener \"/verificar-email\"",
             "match": {
-              "location": "src/step-definitions/ui/candidate-controlled.steps.ts:518"
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:99"
             },
             "result": {
               "status": "passed",
-              "duration": 145269208
+              "duration": 650480833
             }
           },
           {
@@ -212,7 +251,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 53820125
+              "duration": 54488290
             }
           }
         ],
@@ -222,35 +261,226 @@
             "line": 2
           },
           {
-            "name": "@candidate-controlled",
+            "name": "@ConsentimientosUi",
             "line": 2
           },
           {
-            "name": "@CandidateControlledActions",
+            "name": "@privacy",
+            "line": 2
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "consentimientosui;registro-de-empresa-muestra-términos-del-contacto-y-bloquea-sin-aceptar",
+        "keyword": "Escenario",
+        "line": 27,
+        "name": "Registro de empresa muestra términos del contacto y bloquea sin aceptar",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 154375
+            }
+          },
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1756754791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 28,
+            "name": "genero una invitacion UI de empresa",
+            "match": {
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 15032977290
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 29,
+            "name": "abro el registro de empresa generado para UI",
+            "match": {
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:70"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2167336581
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Entonces ",
+            "line": 30,
+            "name": "debo ver el texto \"Registro de empresa\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 399786873
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 31,
+            "name": "debo ver checkbox asociado al texto \"aplicables al contacto de empresa\"",
+            "match": {
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:79"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 129503374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Cuando ",
+            "line": 32,
+            "name": "completo el input \"Nombre de la empresa\" con \"Empresa SpA UI Privacy\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 213089624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 33,
+            "name": "completo el input \"Nombre de contacto\" con \"QA Contacto Empresa\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 191584457
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 34,
+            "name": "completo el input \"Contraseña\" con \"Empresa123!\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 194473207
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 35,
+            "name": "completo el input \"Confirmar contraseña\" con \"Empresa123!\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 179721622
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 36,
+            "name": "hago click en el boton \"Activar cuenta\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:40"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 165892123
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Entonces ",
+            "line": 37,
+            "name": "debo ver el texto \"Debes aceptar los Términos y la Política de Privacidad\"",
+            "match": {
+              "location": "src/step-definitions/ui/common-ui.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 149246916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Y ",
+            "line": 38,
+            "name": "la URL no debe contener \"/verificar-email\"",
+            "match": {
+              "location": "src/step-definitions/ui/consentimientos-ui.steps.ts:99"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 638055207
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 56323916
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@ui",
+            "line": 2
+          },
+          {
+            "name": "@ConsentimientosUi",
+            "line": 2
+          },
+          {
+            "name": "@privacy",
             "line": 2
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "candidatecontrolledactions",
+    "id": "consentimientosui",
     "line": 3,
     "keyword": "Característica",
-    "name": "CandidateControlledActions",
+    "name": "ConsentimientosUi",
     "tags": [
       {
         "name": "@ui",
         "line": 2
       },
       {
-        "name": "@candidate-controlled",
+        "name": "@ConsentimientosUi",
         "line": 2
       },
       {
-        "name": "@CandidateControlledActions",
+        "name": "@privacy",
         "line": 2
       }
     ],
-    "uri": "features/ui/CandidateControlledActions.feature"
+    "uri": "features/ui/ConsentimientosUi.feature"
   }
 ]

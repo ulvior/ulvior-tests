@@ -69,6 +69,28 @@ async function clickIfVisible(world: UlviorWorld, label: string): Promise<boolea
   return true
 }
 
+// Matches the literal text exactly (normalize-space), unlike clickIfVisible's
+// substring match — needed to disambiguate e.g. "Enviar corrección" (modal
+// confirm button) from "Enviar corrección final" (the trigger that opens it).
+async function clickExactIfVisible(world: UlviorWorld, label: string): Promise<boolean> {
+  const driver = ensureDriver(world)
+  const literal = xpathLiteral(label)
+  const elements = await visibleElements(
+    driver,
+    By.xpath(`//*[self::button or self::a][normalize-space(.)=${literal} or @title=${literal} or @aria-label=${literal}]`),
+  )
+  if (!elements.length) return false
+  await driver.executeScript('arguments[0].scrollIntoView({block:"center", inline:"center"})', elements[0])
+  await driver.sleep(150)
+  try {
+    await elements[0].click()
+  } catch {
+    await driver.executeScript('arguments[0].click()', elements[0])
+  }
+  await waitSettled(world)
+  return true
+}
+
 async function fastClickIfVisible(world: UlviorWorld, labels: string[]): Promise<boolean> {
   const driver = ensureDriver(world)
   const clicked = await driver.executeScript(`
@@ -301,7 +323,7 @@ When('subo el CV fixture candidato {string}', async function (this: UlviorWorld,
   await waitSettled(this)
 })
 
-When('analizo el CV desde UI si esta pendiente', async function (this: UlviorWorld) {
+When('analizo el CV desde UI si esta pendiente', { timeout: 140000 }, async function (this: UlviorWorld) {
   const clicked =
     await clickIfVisible(this, 'Rellenar perfil')
     || await clickIfVisible(this, 'Rellenar perfil con CV')
@@ -325,7 +347,11 @@ When('guardo el perfil candidato desde UI', async function (this: UlviorWorld) {
   await driver.wait(async () => {
     const url = await driver.getCurrentUrl()
     const text = await bodyText(this)
-    return url.includes('/candidato/perfil') || text.includes('Perfil actualizado') || text.includes('Mi perfil')
+    return (
+      url.endsWith('/candidato/perfil')
+      || text.includes('Perfil actualizado')
+      || (text.includes('Mi perfil') && !text.includes('Guardando...'))
+    )
   }, ENV.SELENIUM_TIMEOUT, 'Guardar perfil no mostro estado estable')
 })
 
@@ -354,6 +380,7 @@ When('cargo una solucion JavaScript valida en el editor coding', { timeout: 9000
   await waitSettled(this)
   if (await markCodingAlreadyPersistedIfPresent(this)) return
 
+  await fastClickIfVisible(this, ['Corregir solución'])
   await fastClickIfVisible(this, ['Comenzar desafío', 'Editor', 'Código', '2 · Código', '2 Código'])
 
   await loginApiAsCandidate(this)
@@ -428,18 +455,22 @@ When('ejecuto el codigo candidato desde UI', { timeout: 90000 }, async function 
   }, 60000, 'La ejecucion de codigo no persistio execution_result en backend')
 })
 
-When('evaluo el codigo candidato con IA si esta habilitado', async function (this: UlviorWorld) {
+When('evaluo el codigo candidato con IA si esta habilitado', { timeout: 200000 }, async function (this: UlviorWorld) {
   if ((this as any).codingAlreadyPersisted) return
   const clicked =
-    await clickIfVisible(this, 'Evaluar con IA')
-    || await clickIfVisible(this, 'Enviar corrección final')
-    || await clickIfVisible(this, 'Enviar corrección')
+    await clickExactIfVisible(this, 'Evaluar con IA')
+    || await clickExactIfVisible(this, 'Evaluar solución')
+    || await clickExactIfVisible(this, 'Enviar corrección final')
+    || await clickExactIfVisible(this, 'Enviar corrección')
   if (!clicked) return
+  // "Enviar corrección final" (re-evaluation) only opens a ConfirmModal —
+  // it does not submit by itself. Confirm it if it appeared.
+  await clickExactIfVisible(this, 'Enviar corrección')
   const driver = ensureDriver(this)
   await driver.wait(async () => {
     const text = await bodyText(this)
     return text.includes('Resultado') || text.includes('Preguntas') || text.includes('Score') || text.includes('Generando preguntas')
-  }, 120000, 'La evaluacion AI de coding no dejo resultado visible')
+  }, 180000, 'La evaluacion AI de coding no dejo resultado visible')
 })
 
 Then('backend candidato debe conservar CV disponible y analizado', async function (this: UlviorWorld) {

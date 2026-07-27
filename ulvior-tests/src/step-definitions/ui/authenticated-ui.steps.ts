@@ -5,6 +5,7 @@ import { UlviorWorld } from '../../support/world'
 import { LoginPage } from '../../pages/LoginPage'
 import { ENV } from '../../support/env'
 import { renderTemplate } from '../../utils/template'
+import { buildDriver } from '../../support/driver'
 
 const ROLE_HOME: Record<string, string> = {
   admin: '/admin/dashboard',
@@ -42,6 +43,26 @@ function xpathLiteral(value: string): string {
 function ensureDriver(world: UlviorWorld) {
   assert.ok(world.driver, 'Selenium driver no inicializado. Usa el tag @ui.')
   return world.driver
+}
+
+async function ensureLiveDriver(world: UlviorWorld) {
+  if (!world.driver) {
+    world.driver = await buildDriver()
+    return world.driver
+  }
+
+  try {
+    await world.driver.getAllWindowHandles()
+    return world.driver
+  } catch {
+    try {
+      await world.driver.quit()
+    } catch {
+      // The browser process is already gone; create a fresh driver below.
+    }
+    world.driver = await buildDriver()
+    return world.driver
+  }
 }
 
 async function bodyText(world: UlviorWorld): Promise<string> {
@@ -101,7 +122,7 @@ function getBadgeCountFromText(text: string): number {
 }
 
 Given('inicio sesion como {string}', async function (this: UlviorWorld, role: string) {
-  const driver = ensureDriver(this)
+  const driver = await ensureLiveDriver(this)
   const normalized = normalizeRole(role)
   const credentials = ROLE_CREDENTIALS[normalized]
   assert.ok(credentials, `Rol no soportado para login UI: ${role}`)
