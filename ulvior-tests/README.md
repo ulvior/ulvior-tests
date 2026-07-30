@@ -38,3 +38,21 @@ Cada step guarda su resultado. En UI, Selenium toma screenshot despues de cada p
 ## Variables
 
 Configura `API_URL`, `AI_URL`, `WEB_URL`, credenciales de prueba y `HEADLESS` en `.env.local`.
+
+## Cloudflare Turnstile en los ambientes que apuntan estas pruebas
+
+Los formularios públicos/sensibles (contacto, registro, login, recuperar
+contraseña) tienen Turnstile activo. Para que Selenium pueda completarlos
+sin quedar bloqueado por un challenge real (Selenium suele detectarse como
+bot), el ambiente al que apunta `WEB_URL`/`API_URL` (staging/UAT) debe tener
+configuradas las claves de prueba OFICIALES de Cloudflare — nunca las reales:
+
+- Backend (`TURNSTILE_SECRET_KEY`): `1x0000000000000000000000000000000AA` (siempre aprueba)
+- Frontend (`NEXT_PUBLIC_TURNSTILE_SITE_KEY`): `1x00000000000000000000AA` (siempre aprueba)
+
+Con esas claves el widget se auto-resuelve sin interacción real. No hace
+falta ninguna variable nueva acá en `ulvior-tests` — `BasePage.click()` ya
+espera a que el botón de submit esté habilitado antes de clickear, que es
+lo único que cambia con Turnstile en la página (el submit queda deshabilitado
+hasta que el widget resuelve, ~1s). Ver `src/turnstile/` en `ulvior-api` y
+`src/components/shared/Turnstile.jsx` en `ulvior-web`.

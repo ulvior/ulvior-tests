@@ -32,6 +32,12 @@ export class BasePage {
   async click(locator: By): Promise<void> {
     const el = await this.findElement(locator)
     await this.driver.wait(until.elementIsVisible(el), this.timeout)
+    // Espera a que el botón esté habilitado antes de clickear — necesario
+    // para botones de submit que se deshabilitan hasta que el widget de
+    // Turnstile resuelve (con la site key de test siempre-pasa, eso toma
+    // ~1s tras cargar la página). No afecta botones normales: si ya están
+    // habilitados, esta espera resuelve de inmediato.
+    await this.driver.wait(until.elementIsEnabled(el), this.timeout)
     await el.click()
   }
 
