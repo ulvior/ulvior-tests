@@ -1,5 +1,5 @@
 # language: es
-@api @ConsentimientosApi @regression
+@api @ConsentimientosApi @regression @requires_test_db @db_write
 Característica: ConsentimientosApi
   Como QA
   quiero cubrir el consentimiento de datos del candidato y sus derechos ARCO+

@@ -1,5 +1,5 @@
 # language: es
-@api @BillingApi @regression
+@api @BillingApi @regression @requires_test_db @db_write
 Característica: BillingApi
   Como QA
   quiero cubrir planes, contratos, facturación, pagos y órdenes de servicio

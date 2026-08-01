@@ -17,6 +17,10 @@ async function request(
   path: string,
   body?: unknown,
 ) {
+  const writeMethod = method !== 'GET'
+  if (writeMethod && process.env.E2E_ALLOW_DATABASE_WRITES !== 'true') {
+    throw new Error('Prueba de escritura bloqueada: define E2E_ALLOW_DATABASE_WRITES=true usando una base de pruebas aislada.')
+  }
   const client = clientFor(world, (world as any).activeService ?? 'api')
   const renderedPath = renderTemplate(path)
 

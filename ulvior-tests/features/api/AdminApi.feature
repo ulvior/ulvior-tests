@@ -1,5 +1,5 @@
 # language: es
-@api @AdminApi @regression
+@api @AdminApi @regression @requires_test_db @db_write
 Característica: AdminApi
   Como equipo de QA
   quiero cubrir todos los contratos HTTP del backoffice admin

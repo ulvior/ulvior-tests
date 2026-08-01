@@ -1,5 +1,5 @@
 # language: es
-@api @CandidateBackendE2E @regression
+@api @CandidateBackendE2E @regression @requires_test_db @db_write
 Característica: CandidateBackendE2E
   Como QA Lead
   quiero validar backend candidato con sesión real

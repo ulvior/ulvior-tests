@@ -1,5 +1,5 @@
 # language: es
-@api @CompanyBackendE2E @regression
+@api @CompanyBackendE2E @regression @requires_test_db @db_write
 Característica: CompanyBackendE2E
   Como QA Lead
   quiero validar backend empresa con sesión real
