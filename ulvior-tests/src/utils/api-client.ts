@@ -15,6 +15,17 @@ export interface ApiEvidence {
   durationMs: number
 }
 
+const SENSITIVE_HEADERS = new Set(['authorization', 'cookie', 'set-cookie', 'x-internal-token'])
+
+/** Redacts secret-bearing header values before they're persisted into evidence reports. */
+function redactHeaders(headers: Record<string, string>): Record<string, string> {
+  const redacted: Record<string, string> = {}
+  for (const [key, value] of Object.entries(headers)) {
+    redacted[key] = SENSITIVE_HEADERS.has(key.toLowerCase()) ? '[REDACTED]' : value
+  }
+  return redacted
+}
+
 export class ApiClient {
   private baseUrl: string
   private token?: string
@@ -83,7 +94,7 @@ export class ApiClient {
       const evidence: ApiEvidence = {
         method,
         url,
-        headers,
+        headers: redactHeaders(headers),
         body: options.body,
         status: 0,
         response: { error: err.message },
@@ -95,7 +106,7 @@ export class ApiClient {
     const evidence: ApiEvidence = {
       method,
       url,
-      headers,
+      headers: redactHeaders(headers),
       body: options.body,
       status: response.status,
       response: response.data,
