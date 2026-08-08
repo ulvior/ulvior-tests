@@ -59,9 +59,10 @@ setup-supabase.sql
 *.docx
 
 
-ulvior-tests/node_modules/
-ulvior-tests/reports/
-ulvior-tests/e2e-inventory/
-ulvior-tests/e2e-reports/
-ulvior-tests/tmp/
-ulvior-tests/.env.local
+reports/
+e2e-inventory/
+e2e-reports/
+tmp/
+
+# ─── Archivos de orquestación del monorepo (fuera de este repo) ─────────────
+.local-dev/
