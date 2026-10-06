@@ -11,7 +11,8 @@ Característica: CandidateBackendE2E
       """
       {
         "email": "{{TEST_CANDIDATO_EMAIL}}",
-        "password": "{{TEST_CANDIDATO_PASSWORD}}"
+        "password": "{{TEST_CANDIDATO_PASSWORD}}",
+        "turnstileToken": "XXXX.DUMMY.TOKEN.XXXX"
       }
       """
     Entonces el status HTTP debe ser uno de "200, 201"

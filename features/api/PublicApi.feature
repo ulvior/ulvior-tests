@@ -25,13 +25,15 @@ Característica: PublicApi
     Y la respuesta debe contener la propiedad "compartir_empresas.version"
     Y la respuesta debe contener la propiedad "marketing.version"
 
-  Escenario: Textos legales de empresa son publicos antes del registro
+  # Términos y Privacidad son un solo documento para toda la plataforma
+  # (candidatos y empresas): el endpoint de empresa por separado ya no existe.
+  Escenario: Los Términos unificados (candidatos y empresas) son públicos antes del registro
     Dado que uso el servicio "api"
-    Cuando envio GET a "/public/privacidad/empresa/terminos"
+    Cuando envio GET a "/public/privacidad/terminos"
     Entonces el status HTTP debe ser 200
-    Y la respuesta debe contener la propiedad "version"
-    Y la respuesta debe contener la propiedad "title"
-    Y la respuesta JSON debe contener el texto "contacto de empresa"
+    Y la respuesta debe contener la propiedad "tos.version"
+    Y la respuesta debe contener la propiedad "tos.title"
+    Y la respuesta JSON debe contener el texto "empresas"
     Y la respuesta JSON debe contener el texto "Ley"
 
   Escenario: Formulario comercial registra evidencia de inputs y resultado

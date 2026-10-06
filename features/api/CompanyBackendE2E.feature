@@ -11,7 +11,8 @@ Característica: CompanyBackendE2E
       """
       {
         "email": "{{TEST_EMPRESA_EMAIL}}",
-        "password": "{{TEST_EMPRESA_PASSWORD}}"
+        "password": "{{TEST_EMPRESA_PASSWORD}}",
+        "turnstileToken": "XXXX.DUMMY.TOKEN.XXXX"
       }
       """
     Entonces el status HTTP debe ser uno de "200, 201"

@@ -11,7 +11,8 @@ Característica: AuthApi
       """
       {
         "email": "{{TEST_ADMIN_EMAIL}}",
-        "password": "{{TEST_ADMIN_PASSWORD}}"
+        "password": "{{TEST_ADMIN_PASSWORD}}",
+        "turnstileToken": "XXXX.DUMMY.TOKEN.XXXX"
       }
       """
     Entonces el status HTTP debe ser uno de "200, 201, 401"
@@ -22,7 +23,8 @@ Característica: AuthApi
       """
       {
         "email": "{{TEST_ADMIN_EMAIL}}",
-        "password": "{{TEST_ADMIN_PASSWORD}}"
+        "password": "{{TEST_ADMIN_PASSWORD}}",
+        "turnstileToken": "XXXX.DUMMY.TOKEN.XXXX"
       }
       """
     Entonces el status HTTP debe ser uno de "200, 201"
